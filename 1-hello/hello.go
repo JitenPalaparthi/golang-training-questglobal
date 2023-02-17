@@ -1,0 +1,5 @@
+package main
+
+func main() { // no variations of main.. You need to follow exactly same signature
+	println("Hello World!") //z println is a builtin function
+}

@@ -1,0 +1,4 @@
+- create a hello world go application
+- run it 
+- build it
+- cross compile for android, ios, windows and mac(darwin)
