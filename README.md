@@ -79,3 +79,5 @@ src     -> go source code. Go standard library
 
 ```go install hello.go```
 
+- Go mod : The module name is considered as the root of the project
+
