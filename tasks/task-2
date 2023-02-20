@@ -1,12 +1,12 @@
-Write a program to print Hello World using 
+- Write a program to print Hello World using 
 
-builtin println 
-fmt package println
-fmt pacakge Print with new line
-fmt package Printf with new line
+- builtin println 
+- fmt package println
+- fmt pacakge Print with new line
+- fmt package Printf with new line
 
-1- stripe off the binary
-2- install the binary using go install
-3- check the go assembly code
-4- check assembly calls/objdumps 
+- 1- stripe off the binary
+- 2- install the binary using go install
+- 3- check the go assembly code
+- 4- check assembly calls/objdumps 
 
