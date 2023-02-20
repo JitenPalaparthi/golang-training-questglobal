@@ -1,0 +1,5 @@
+- create a directory and make it as a git repo (local)
+- add files
+- commit files
+- create a remote repo
+- push all files from local to remote repo
