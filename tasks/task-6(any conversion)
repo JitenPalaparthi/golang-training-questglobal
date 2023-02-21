@@ -1,0 +1,6 @@
+- Take three variables
+- a int
+- b float32
+- c any
+
+- perform addition, substraction, multiplcation the result mustbe in float64

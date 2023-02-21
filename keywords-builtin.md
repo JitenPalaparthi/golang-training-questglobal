@@ -7,5 +7,6 @@ var
 
 builtin functions
 println
+print
 len
 complex
