@@ -1,6 +1,6 @@
 - Take three variables
-- a int
-- b float32
-- c any
-
+- a int   = 10
+- b float32 = 10.25
+- c any = 10.55
+- d:= a+b+c
 - perform addition, substraction, multiplcation the result mustbe in float64

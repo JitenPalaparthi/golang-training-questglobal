@@ -1,0 +1,6 @@
+- take 3 variables
+
+- a, b,c 
+1- find the biggest 
+2- check all are equal
+3- check the biggest is qual to any two (a=10, b=20,c=20); It should say b and c have the biggest values..

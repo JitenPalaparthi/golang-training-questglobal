@@ -35,7 +35,6 @@ func main() {
 	i1 = 143.456 //float
 	fmt.Println(i1)
 	//var i2 integer
-
 }
 
 // Object obj = 10
