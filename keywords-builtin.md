@@ -8,6 +8,9 @@ if
 else
 const
 return
+switch
+case
+default
 
 builtin functions
 println

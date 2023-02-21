@@ -1,0 +1,10 @@
+- variable v : 50
+
+-- if v is 0-50 should print it is bwt 0-50
+-- 50-100 should print between 50-100
+-- >150 : more than 150 
+-- < 300: less than 300..
+-- negative value should say negative value
+
+Everything to be done using switch case statements..
+
