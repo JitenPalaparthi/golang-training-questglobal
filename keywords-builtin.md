@@ -6,6 +6,8 @@ import
 var
 if
 else
+const
+return
 
 builtin functions
 println
