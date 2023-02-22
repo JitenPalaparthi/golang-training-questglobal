@@ -14,6 +14,7 @@ default
 fallthrough
 for
 break
+range
 
 builtin functions
 println
