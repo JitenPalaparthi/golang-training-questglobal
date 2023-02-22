@@ -66,6 +66,7 @@ func main() {
 	// StringBuilder sb1 = new StringBuilder("hello") // len: 5 cap: 10
 	// sb1.Add("World")
 	// sb1.Add("How are you doing")
+
 }
 
 func sumOfSlice(arr []int) int {
