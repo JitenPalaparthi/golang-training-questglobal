@@ -11,6 +11,7 @@ return
 switch
 case
 default
+fallthrough
 
 builtin functions
 println
