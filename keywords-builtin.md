@@ -12,6 +12,8 @@ switch
 case
 default
 fallthrough
+for
+break
 
 builtin functions
 println
