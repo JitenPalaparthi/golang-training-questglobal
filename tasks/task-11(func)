@@ -1,0 +1,5 @@
+- create function Arthemetic with any as input parameters and also return type
+- implement Add, Sub, Mul in func arthemetic
+- func Arthemetic(a,b any)(any,any,any)
+- Addition must happen for int, int8,int16,int32,int64,uint8,uint16,uint32,uint64,float32,float64
+- other than any other datatype is given , it should return 0,0,0 as the result
