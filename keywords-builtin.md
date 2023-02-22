@@ -17,7 +17,12 @@ break
 range
 
 builtin functions
+
 println
 print
-len
 complex
+len
+cap
+make
+append
+
