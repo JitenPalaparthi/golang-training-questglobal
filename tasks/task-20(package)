@@ -1,0 +1,4 @@
+create three different packages
+- math -> all Addition,Sub,Multiplication and Division
+- shapes/triangle --> Area and Perimeter of triangle
+- call them in main function
