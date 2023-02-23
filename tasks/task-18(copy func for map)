@@ -1,0 +1,5 @@
+- create a copy function for map
+
+- copyM(dst map[string]any,src map[string]any)(n int,err error)
+- n means number of elements copied
+- err is if any of the maps(dst or src)is nil it should return error

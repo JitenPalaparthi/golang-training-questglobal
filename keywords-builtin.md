@@ -1,21 +1,5 @@
 Keywords
-
-package
-func
-import
-var
-if
-else
-const
-return
-switch
-case
-default
-fallthrough
-for
-break
-range
-map
+break,case,const,default,else,fallthrough,goto,for,func,if,import,map,package,range,return,swith,var
 
 builtin functions
 println 

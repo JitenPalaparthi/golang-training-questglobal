@@ -48,8 +48,9 @@ func main() {
 		println("map is not nil")
 	}
 
-	mp1["name"] = "Quest Global"                                                 //string
-	mp1["number"] = 10001                                                        //int
+	mp1["name"] = "Quest Global" //string
+	mp1["number"] = 10001
+	mp1["share-price"] = 12399.34343                                             //int
 	mp1["isRegistered"] = true                                                   //bool
 	mp1["branches"] = []string{"Bangalore", "Hyderabad", "Mumbai", "California"} //slice
 	mp1["dummy"] = "xyz"
