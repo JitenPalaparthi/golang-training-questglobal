@@ -1,0 +1,4 @@
+- Create a map 
+- create  getKeys(map)([]string,error)
+- create getValues(map)([]any,error)
+- Find duplicate values in a map getDuplicate(map)([]any,error)

@@ -15,14 +15,16 @@ fallthrough
 for
 break
 range
+map
 
 builtin functions
-
-println
+println 
 print
 complex
 len
 cap
 make
 append
+delete
+copy
 

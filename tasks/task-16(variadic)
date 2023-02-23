@@ -1,0 +1,6 @@
+- create a function sumOf(vals ...any)(any,error)
+- if other an numbers are given as arguments , it must return an error saying 
+"invalid arguments at index"
+- sumOf(10,10.5,11111111,0,12.345554645)
+- should perform Sum on the following datatypes uint8-uint64 and int8-int64,int, float32,float64
+- the result must be in float64 format
