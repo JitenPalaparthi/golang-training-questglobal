@@ -1,0 +1,5 @@
+- create arthemetic operations using pointers
+
+- add(*int,*int)(*int,error)
+- sub(*int,*int)(*int,error)
+- mul(*int,*int)(*int,error)

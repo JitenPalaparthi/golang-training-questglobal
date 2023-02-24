@@ -1,5 +1,5 @@
 Keywords
-break,case,const,default,else,fallthrough,goto,for,func,if,import,map,package,range,return,swith,var
+break,case,const,default,else,fallthrough,goto,for,func,if,import,map,package,range,return,switch,var
 
 builtin functions
 println 
