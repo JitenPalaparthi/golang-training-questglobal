@@ -1,0 +1,8 @@
+- create a user defined slice name it as slice of type []int
+- type slice []int
+- implement methods on slice as 
+- Asc(),Dec()
+- SumOf(),
+- Duplicates()
+- DeleteAt(i int)
+- RepalceAt(i,v int)

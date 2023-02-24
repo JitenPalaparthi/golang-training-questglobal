@@ -28,6 +28,7 @@ func main() {
 	e1.Status = "Active"
 	e1.Address.Status = "Active"
 	fmt.Println(e1)
+	e1.GetAddress()
 
 	// anonymous struct
 	c1 := struct {
@@ -52,15 +53,55 @@ func main() {
 type Person struct {
 	No          int
 	Name, Email string
-	Addr        Address //composition
+	Addr        Address //composition : Person has a relationship with Addr..
 }
 
 type Address struct {
 	Line1, City, Street, State, Country, ZipCode, Status string
 }
 
+func (a Address) GetAddress() {
+	fmt.Println(a)
+}
+
 type Employee struct {
 	No                  int
 	Name, Email, Status string
-	Address             // promoted field
+	Address             // promoted field similar to kind of Inheritance
+	// Address is related to person
+	//Company
 }
+
+// class Address{
+// 	string City,Country;
+// }
+
+// class Person:Address{
+// 	string Name;
+// 	int id
+// }
+
+// Person p1 = new Person();
+// p1.Name
+// p1.Id
+// p1.City
+// p1.County
+
+// type DBFields struct {
+// 	ID           int
+// 	Status       string
+// 	LastModified uint64
+// }
+
+// type Employee struct {
+// 	DBFields
+// 	Name  string
+// 	EmpID int
+// 	Sal   float32
+// }
+
+// type Item struct {
+// 	DBFields
+// 	Name     string
+// 	Quantity int
+// }
