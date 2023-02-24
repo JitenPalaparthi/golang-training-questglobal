@@ -8,7 +8,9 @@ complex
 len
 cap
 make
+new
 append
 delete
 copy
+
 

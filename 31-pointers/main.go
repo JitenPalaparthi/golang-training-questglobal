@@ -1,7 +1,10 @@
 // int and *int --> are different
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unsafe"
+)
 
 func main() {
 
@@ -25,6 +28,27 @@ func main() {
 
 	ptr6 := sum2(&i, &j)
 	fmt.Println("Sum4:", *ptr6)
+
+	slice := []int{10, 20, 30, 40}
+
+	//pointer arthemetic
+
+	ptr7 := &slice[0]
+
+	fmt.Println(ptr7) // 0x14000022080 +8--> 0x14000022088
+	// ptr7 = ptr7 + 8
+	// ptr7 = ptr7 + 8
+
+	//var addr uintptr = 0x14000022080 // convert pointer to uintptr
+	var addr uintptr = uintptr(unsafe.Pointer(ptr7))
+
+	addr = addr + 8
+	//fmt.Println(*(*int)(addr))
+	fmt.Printf("0x%X", addr)
+	ptr7 = (*int)(unsafe.Pointer(addr))
+
+	fmt.Println("\n", *ptr7)
+
 }
 
 func sum1(i, j int) int {
@@ -51,3 +75,5 @@ func sum4(i, j *int) *int {
 	*s = *i + *j
 	return s //memory leak
 }
+
+//uintptr
