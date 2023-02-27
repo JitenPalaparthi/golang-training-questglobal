@@ -14,6 +14,8 @@ func main() {
 	go Sayhi()
 	fmt.Println("Hello World from main")
 
+	go fmt.Println("Can I be executed as a goroutine?")
+
 	go func() {
 		for i := 1; i <= 100; i++ {
 			fmt.Println("Go Routine-1", i)
