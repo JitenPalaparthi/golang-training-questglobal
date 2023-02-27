@@ -18,7 +18,6 @@ func main() {
 		if i%3 != 0 {
 			continue
 		}
-
 		fmt.Print(i, " ")
 	}
 
