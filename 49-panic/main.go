@@ -14,7 +14,7 @@ func main() {
 	}()
 	func() {
 		func() {
-			defer recoverMe()
+			//defer recoverMe()
 			defer fmt.Println("There is a panic still I can do this")
 			defer fmt.Println(getFullName(fname, nil))
 		}()
@@ -35,6 +35,7 @@ func recoverMe() {
 
 // deallock and panic.
 func getFullName(firstname, lastname *string) string {
+	defer recoverMe()
 	if firstname == nil || lastname == nil {
 		panic("firstname or lastname is nil")
 	}
