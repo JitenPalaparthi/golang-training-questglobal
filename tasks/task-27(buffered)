@@ -1,0 +1,4 @@
+- create two go routines..
+- one to send value and other to receive that value and double it and print it.
+
+- implement it with buffered channel
