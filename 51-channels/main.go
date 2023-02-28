@@ -12,7 +12,7 @@ import (
 
 func main() {
 	ch := make(chan int) // bi-directional channel
-	done := make(chan struct{})
+	done := make(chan *struct{})
 	//done := make(chan bool)
 	go func() {
 		for i := 1; i <= 100; i++ {
@@ -26,15 +26,15 @@ func main() {
 			receiver(ch)
 		}
 		//done <- true
-		done <- struct{}{}
+		done <- new(struct{}) // if struct is not a pointer struct{}{}
 	}()
 	//time.Sleep(time.Second * 2)
 	<-done
-	// type empployee struct{}
-	// e1 := empployee{}
+	// type employee struct{}
+	// e1 := employee{}
 }
 
-//type empployee struct{}
+//type employee struct{}
 
 func sender(ch chan<- int, value int) { // send only channel
 	ch <- value

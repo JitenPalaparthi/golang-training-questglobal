@@ -14,6 +14,7 @@
 // to receive a value from channel k:= <- ch
 // can also receive a value and dont assign to any varialbe <-ch (similar to a func returns a value but you dont take that value still the func executes)
 // channels can be bidirectional or unidirectional
+// the order of sender or receiver can be in any order[i.e receiver could be first and sender could be next]
 package main
 
 import (
