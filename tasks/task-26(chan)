@@ -1,0 +1,1 @@
+- From example 50-channels , remove time.Sleep and use sync.WaitGroup

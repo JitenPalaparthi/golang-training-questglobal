@@ -13,6 +13,7 @@
 // to send data to channel ch <- 100
 // to receive a value from channel k:= <- ch
 // can also receive a value and dont assign to any varialbe <-ch (similar to a func returns a value but you dont take that value still the func executes)
+// channels can be bidirectional or unidirectional
 package main
 
 import (
