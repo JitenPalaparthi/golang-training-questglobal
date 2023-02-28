@@ -1,7 +1,7 @@
 Keywords
 break,case,const,continue,default,defer,else,fallthrough,go,goto,for,func,if,import,interface,map,package,range,return,struct,switch,type,var
 
-chan, select,  
+chan, select 
 
 builtin functions
 println 
@@ -14,6 +14,8 @@ new
 append
 delete
 copy
+panic
+recover
 
 built-in type
 uintptr 
