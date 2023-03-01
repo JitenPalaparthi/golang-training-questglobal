@@ -26,14 +26,23 @@ func main() {
 	// ?name=quest-global : This is a query string. name is the key and quest-global is a value
 
 	http.HandleFunc("/", HelloWorld)
+
 	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "pong")
+		if r.Method == "GET" {
+			fmt.Fprintln(w, "pong")
+		}
+	})
+
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(200)
+		w.Write([]byte("Server health is ok"))
 	})
 
 	fmt.Println("server started and running on port:50059")
 	if err := http.ListenAndServe(":50059", nil); err != nil {
 		fmt.Println("There is an error and unable to proceed")
 	}
+
 }
 
 func HelloWorld(w http.ResponseWriter, r *http.Request) {
