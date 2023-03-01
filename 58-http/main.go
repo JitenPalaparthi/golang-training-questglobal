@@ -30,7 +30,7 @@ func AddEmployee(w http.ResponseWriter, r *http.Request) {
 			return
 		} else {
 			fmt.Fprint(w, e1)
-			f, err := os.Create("files/" + fmt.Sprint(e1.Id))
+			f, err := os.Create("files/" + fmt.Sprint(e1.Id)) // to create a file
 			if err != nil {
 				w.WriteHeader(400)
 				w.Write([]byte(err.Error()))
@@ -46,6 +46,23 @@ func AddEmployee(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if r.Method == "GET" {
 		w.Write([]byte("No employee data found"))
+		return
+	} else if r.Method == "DELETE" {
+		vals := r.URL.Query()
+		id := vals.Get("id")
+		if id == "" {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte("no id found"))
+			return
+		}
+		_, err := os.OpenFile("files/"+id, 0, 0)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Println(err)
+			w.Write([]byte("no file found"))
+			return
+		}
+		w.Write([]byte(id + " to be deleted"))
 		return
 	} else {
 		w.WriteHeader(405)
