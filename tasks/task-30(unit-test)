@@ -1,0 +1,9 @@
+- write a function to reverse a string inside a package called strings (write own logic)
+
+- write a function to count number of vovels in string [ dont use len builtin function. Write your own logic]
+
+- write a function to covert lowercase to UPPERCASE. If the string contains other charts other than english..keep it as it is(write own logic.)
+    - if the string is already in UPPERCASE -> return it as it as..
+    - example: hello$World --> HELLO$WORLD
+
+- write unit tests for these three functions..

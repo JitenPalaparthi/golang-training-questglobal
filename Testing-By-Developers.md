@@ -24,3 +24,7 @@
 - System testing: Test whole system and make sure that as a system it is working. This is done by automation.
 
 - End to End testing: Test a flow. Example shopping cart --> Search for items - add an item to the cart- make payment - get it delivered (Email|SMS). This is done by automation.
+
+
+// TDD --> First you write unit tests.. without implementing the actual unit logic
+// 
