@@ -7,3 +7,7 @@ func Area(l, b float32) float32 {
 func Perimeter(l, b float32) float32 {
 	return 2 * (l + b)
 }
+
+func Square(i int) int {
+	return i * i
+}

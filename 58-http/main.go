@@ -12,7 +12,7 @@ func main() {
 	//e := new(employee.Employee)
 	//e1 := employee.New(100, "Jiten", "JitenP@Outlook.Com")
 
-	http.HandleFunc("/employee", AddEmployee)
+	http.HandleFunc("/employee", Employee)
 
 	fmt.Println("Server started and listening on port 50060")
 	if err := http.ListenAndServe(":50060", nil); err != nil {
@@ -20,7 +20,7 @@ func main() {
 	}
 }
 
-func AddEmployee(w http.ResponseWriter, r *http.Request) {
+func Employee(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		e1 := employee.Employee{}
 		err := json.NewDecoder(r.Body).Decode(&e1)
@@ -69,8 +69,4 @@ func AddEmployee(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("not implemented"))
 		return
 	}
-}
-
-func GetEmployee(w http.ResponseWriter, r *http.Request) {
-
 }
