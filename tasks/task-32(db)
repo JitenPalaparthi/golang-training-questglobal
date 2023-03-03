@@ -1,0 +1,21 @@
+Create a database : companydb
+
+in postgressql and also in mongodb
+
+create a table : employee (id,name,email, address)
+
+create a collection: employee(name,email,address)
+
+create a table: employee_salary (id,eid,basic,hra)
+
+create a collection employee_salary (basic,hra)
+
+- Maintain relationships between tables in rdbms. maintain employee and employee_salary realtion ship
+
+- Maintain relationships betwen collections in nosql(mongodb) employee and employee_salary 
+
+-- insert records into tables
+-- insert documents into collections
+
+
+

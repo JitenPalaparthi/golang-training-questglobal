@@ -102,10 +102,8 @@ func GetVovelCountFromFile2(filename string) (uint, error) {
 			// close the channel here
 			break
 		}
-
 		// send data to channel
 		// from other go rountine read from this channel and find vovel count , add that vovel count to the previous count
-
 	}
 
 	return GetVovelCount(string(buf)), nil
