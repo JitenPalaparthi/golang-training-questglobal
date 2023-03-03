@@ -1,0 +1,5 @@
+- from example 61
+
+- in GetVovelCountFromFile2 : For every iteration of file reading, send the buffer as a string to the channel and maintain the count from a go routine.
+
+- At the end of the caluclation it should print the count

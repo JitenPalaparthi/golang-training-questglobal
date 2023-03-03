@@ -26,5 +26,5 @@
 - End to End testing: Test a flow. Example shopping cart --> Search for items - add an item to the cart- make payment - get it delivered (Email|SMS). This is done by automation.
 
 
-// TDD --> First you write unit tests.. without implementing the actual unit logic
-// 
+// TDD --> First you write unit tests.Initially dont implement the logic for the unit. It fails at first, so you need to implement the logic to pass the test.
+// BDD --> Behavior driven development: It is an extension for TDD. Tests are written in a natural language : ginko is a framework for BDD
