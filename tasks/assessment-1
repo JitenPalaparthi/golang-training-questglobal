@@ -1,0 +1,18 @@
+- CRUD operations on files.
+- Http based service
+- Create a saperate repo in gitlab.
+- Contact details.
+    - ID, Name, Email,Address, Mobile Number
+    - Upon each Contact creation , it should create a new file with the id.
+    - Id must be unique. That meand if there is an id already exists, it should say that id already there and ask user to give another id.
+    - For Update operation , read data and overwrite (Dont append)
+    - Delete operation, should be file delete
+    - Use flag/command line argument for port.
+
+    These are the folloing apis
+
+    /Contact/add --> POST request -> Create a new Contact
+    /Contact/update --> PUT or POST request --> Update an existing Contact
+    /Contact/delete?id=101 --> DELETE request -> Delete a file based on the id
+    /Contact/get?id=101 --> GET request -> Fetch details of the Contact
+    /Contact/get/all  -> GET request -> Fetch all Contact details. Means fetch all files and display details
