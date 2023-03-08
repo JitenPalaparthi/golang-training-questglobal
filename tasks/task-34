@@ -1,0 +1,8 @@
+- use gin package
+- write health endpoint
+- write contact endpoint
+- contact --> id,name, email
+- get contact data
+
+- "/health" --> "The service is up and running on port 50090"
+"/contact" --> {"id":100,"name":"Quest Global","email":"info@JitenPalaparthiQuestGloba.Com}
