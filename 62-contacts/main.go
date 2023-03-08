@@ -1,18 +1,23 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"time"
 
-	"log"
-
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+var (
+	port string
+)
 
+func main() {
+	flag.StringVar(&port, "port", "50090", "--port=50090 or --port 50090 or -port 50090")
+	flag.Parse()
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		m := &Message{Status: "pong"}
@@ -22,7 +27,7 @@ func main() {
 		// c.XML(http.StatusOK, m)
 	})
 
-	r.GET("/greet/:name", Authenticate(), func(c *gin.Context) {
+	r.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
 		if name, ok := c.Params.Get("name"); !ok {
 			c.String(http.StatusBadRequest, "name parameter has not been provided")
 			c.Abort()
@@ -37,7 +42,8 @@ func main() {
 	// })
 	//http.ListenAndServe(":50090", nil)
 	go func() {
-		r.Run(":50090")
+		r.Run(":" + port)
+		//r.Run()
 	}()
 
 	count := 0
@@ -49,7 +55,7 @@ func main() {
 
 }
 
-func Authenticate() func(*gin.Context) {
+func Authenticate(token string) func(*gin.Context) {
 	return func(c *gin.Context) {
 		email := c.Request.Header.Get("email")
 		password := c.Request.Header.Get("password")
@@ -57,7 +63,7 @@ func Authenticate() func(*gin.Context) {
 		if email == "" || password == "" {
 			c.String(http.StatusUnauthorized, "bad credentials")
 			c.Abort()
-		} else if email == "admin@questglobal.com" && password == "admin@123" {
+		} else if email == "admin@questglobal.com" && password == "admin@123" && token == "123456" {
 			c.Next()
 		} else {
 			c.String(http.StatusUnauthorized, "bad credentials")
@@ -86,7 +92,7 @@ type Message struct {
 }
 
 // 1- gin package
-// 2- commandline arguments. flags pa ckae
+// 2- commandline arguments. flags package
 // 3- env variables. os package
 // 4- datbase retry logic
 // 5- logging // glog
