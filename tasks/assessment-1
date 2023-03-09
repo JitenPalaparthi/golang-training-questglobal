@@ -1,6 +1,7 @@
 - CRUD operations on files.
 - Http based service
 - Create a saperate repo in gitlab.
+- Postman/curl to perform operations
 - Contact details.
     - ID, Name, Email,Address, Mobile Number
     - Upon each Contact creation , it should create a new file with the id.

@@ -1,0 +1,7 @@
+- take example 63-channels
+
+- ping and pong already implemented.
+- when you send ping , you receive pong
+- add a new goroutine with another channels that is pang.i.e
+
+  ping->pong->pang

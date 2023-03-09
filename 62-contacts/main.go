@@ -16,8 +16,11 @@ var (
 )
 
 func main() {
-	flag.StringVar(&port, "port", "50090", "--port=50090 or --port 50090 or -port 50090")
-	flag.Parse()
+	port = os.Getenv("PORT")
+	if port == "" {
+		flag.StringVar(&port, "port", "8080", "--port=8080 or --port 8080 or -port 8080")
+		flag.Parse()
+	}
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		m := &Message{Status: "pong"}
@@ -42,7 +45,7 @@ func main() {
 	// })
 	//http.ListenAndServe(":50090", nil)
 	go func() {
-		r.Run(":" + port)
+		log.Fatal(r.Run(":" + port))
 		//r.Run()
 	}()
 
