@@ -9,16 +9,19 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
 )
 
 var (
 	port string
+	dsn  string //= "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai"
 )
 
 func main() {
 	port = os.Getenv("PORT")
 	if port == "" {
 		flag.StringVar(&port, "port", "8080", "--port=8080 or --port 8080 or -port 8080")
+		flag.StringVar(&dsn, "dsn", "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai", "--dsn=host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai")
 		flag.Parse()
 	}
 	r := gin.Default()
@@ -29,6 +32,13 @@ func main() {
 		//c.String(http.StatusOK, "pong")
 		// c.XML(http.StatusOK, m)
 	})
+
+	db, err := database.Connect(dsn)
+	if err != nil {
+		log.Fatalln(err) //Fatals cannot be recoverd but panics can
+	} else {
+		log.Println(db)
+	}
 
 	r.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
 		if name, ok := c.Params.Get("name"); !ok {
