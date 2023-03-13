@@ -35,7 +35,7 @@ func main() {
 
 	db, err := database.Connect(dsn)
 	if err != nil {
-		log.Fatalln(err) //Fatals cannot be recoverd but panics can
+		log.Fatalln(err) //Fatals cannot be recoverd but panics can. Fatal exit the application with os.Exit(1)
 	} else {
 		log.Println(db)
 	}
