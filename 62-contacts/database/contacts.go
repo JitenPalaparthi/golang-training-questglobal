@@ -27,15 +27,17 @@ func (c *Contact) Add(contact *models.Contact) (*models.Contact, error) {
 }
 
 func (c *Contact) Update(id int, data map[string]any) (contact *models.Contact, err error) {
-	tx := c.DB.Model(&models.Contact{}).Where("id =?", id).Updates(data)
+	contact = new(models.Contact)
+	contact.ID = uint64(id)
+	tx := c.DB.Model(contact).Updates(data)
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
 	return c.GetBy(id)
-
 }
 
 func (c *Contact) GetBy(id int) (contact *models.Contact, err error) {
+	contact = new(models.Contact)
 	tx := c.DB.First(contact, id)
 	if tx.Error != nil {
 		return nil, tx.Error
@@ -44,7 +46,7 @@ func (c *Contact) GetBy(id int) (contact *models.Contact, err error) {
 }
 
 func (c *Contact) DeleteBy(id int) (rows int, err error) {
-	tx := c.DB.Delete(id)
+	tx := c.DB.Delete(&models.Contact{}, id)
 	if tx.Error != nil {
 		return 0, tx.Error
 	}

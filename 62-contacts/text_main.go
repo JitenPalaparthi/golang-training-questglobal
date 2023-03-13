@@ -43,4 +43,6 @@ func main() {
 	data["address"] = "Bangalore, Yeshvantpur"
 	fmt.Println(cdb.Update(1, data))
 
+	fmt.Println(cdb.DeleteBy(7))
+
 }
