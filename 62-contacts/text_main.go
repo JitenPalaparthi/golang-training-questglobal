@@ -38,4 +38,9 @@ func main() {
 	cdb.DB = db
 	fmt.Println(cdb.Add(contact))
 
+	data := make(map[string]any)
+	data["phoneNumber"] = "9618558500"
+	data["address"] = "Bangalore, Yeshvantpur"
+	fmt.Println(cdb.Update(1, data))
+
 }
