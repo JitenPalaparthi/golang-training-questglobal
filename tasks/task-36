@@ -1,0 +1,2 @@
+- Perform crud operations of employee using gorm package. Given in the assessment-2
+- the database must be postgres
