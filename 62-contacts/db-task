@@ -1,0 +1,10 @@
+1- start mysql container (You need to research and start mysql container)
+
+2- go to https://gorm.io/docs/connecting_to_the_database.html
+    - change the code from connectiong to postgres to mysql
+    
+3- in test_main.go perfrom all crud operations on mysql
+
+4- for GUI(for mysql).. try to use mysql workbench(https://hub.docker.com/r/linuxserver/mysql-workbench)
+
+This task takes 45 mins of time.
