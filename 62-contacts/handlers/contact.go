@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +14,7 @@ type Contact struct {
 	database.Contact // promoted
 }
 
-func (c *Contact) Create() func(*gin.Context) {
+func (c *Contact) Create(ch chan<- string) func(*gin.Context) {
 	return func(ctx *gin.Context) {
 		var err error
 		if ctx.Request.Method != "POST" {
@@ -50,7 +51,108 @@ func (c *Contact) Create() func(*gin.Context) {
 			ctx.Abort()
 			return
 		} else {
+			ch <- "successfully updated on " + time.Now().String()
+			ctx.JSON(http.StatusCreated, contact)
+			ctx.Abort()
+			return
+		}
 
+	}
+}
+
+// func (c *Contact) UpdateByD(ctx *gin.Context) {
+// 	var (
+// 		err error
+// 		id  string
+// 		_id int
+// 		ok  bool
+// 	)
+// 	if ctx.Request.Method != "PUT" {
+// 		ctx.String(http.StatusNotImplemented, "http method not implementd")
+// 		ctx.Abort()
+// 		return
+// 	}
+
+// 	if id, ok = ctx.Params.Get("id"); !ok {
+// 		ctx.String(http.StatusBadRequest, "id not found")
+// 		ctx.Abort()
+// 		return
+// 	}
+// 	data := make(map[string]any)
+
+// 	if err := ctx.Bind(data); err != nil { // json.Unmarshal
+// 		ctx.String(http.StatusBadRequest, err.Error())
+// 		ctx.Abort()
+// 		return
+// 	}
+
+// 	data["status"] = "updated"
+
+// 	data["lastModified"] = time.Now().Unix() // brainfeed: What is Unix time.How to convert from Unix time to normal data and time and vice versa
+// 	_id, err = strconv.Atoi(id)
+// 	if err != nil {
+// 		ctx.String(http.StatusBadRequest, err.Error())
+// 		ctx.Abort()
+// 		return
+// 	}
+
+// 	if contact, err := c.Update(_id, data); err != nil {
+// 		ctx.String(http.StatusBadRequest, err.Error())
+// 		ctx.Abort()
+// 		return
+// 	} else {
+
+// 		ctx.JSON(http.StatusCreated, contact)
+// 		ctx.Abort()
+// 		return
+// 	}
+// }
+
+func (c *Contact) UpdateBy(ch chan<- string) func(*gin.Context) {
+	return func(ctx *gin.Context) {
+		var (
+			err error
+			id  string
+			_id int
+			ok  bool
+		)
+
+		if ctx.Request.Method != "PUT" {
+			ctx.String(http.StatusNotImplemented, "http method not implementd")
+			ctx.Abort()
+			return
+		}
+
+		if id, ok = ctx.Params.Get("id"); !ok {
+			ctx.String(http.StatusBadRequest, "id not found")
+			ctx.Abort()
+			return
+		}
+
+		data := make(map[string]any)
+
+		if err := ctx.Bind(&data); err != nil { // json.Unmarshal
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		}
+
+		data["status"] = "updated"
+
+		data["lastModified"] = time.Now().Unix() // brainfeed: What is Unix time.How to convert from Unix time to normal data and time and vice versa
+		_id, err = strconv.Atoi(id)
+		if err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		}
+
+		if contact, err := c.Update(_id, data); err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		} else {
+			ch <- "successfully updated on " + time.Now().String()
 			ctx.JSON(http.StatusCreated, contact)
 			ctx.Abort()
 			return

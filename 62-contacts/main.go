@@ -16,7 +16,8 @@ import (
 var (
 	port string
 	dsn  string //= "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai"
-// for mysql: --dsn="user:password@tcp(127.0.0.1:53306)/contactsdb?charset=utf8mb4&parseTime=True&loc=Local"
+	// for mysql: --dsn="user:password@tcp(127.0.0.1:53306)/contactsdb?charset=utf8mb4&parseTime=True&loc=Local"
+	ch chan string
 )
 
 func main() {
@@ -48,7 +49,13 @@ func main() {
 	chandler := new(handlers.Contact) //creating new instance of handler
 	chandler.DB = db
 
-	r.POST("/contact/add", chandler.Create())
+	ch = make(chan string, 2)
+
+	r.POST("/contact/add", chandler.Create(ch))
+
+	r.PUT("/contact/update/:id", chandler.UpdateBy(ch))
+	//r.PUT("/contact/update/d/:id", chandler.UpdateByD)
+
 	r.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
 		if name, ok := c.Params.Get("name"); !ok {
 			c.String(http.StatusBadRequest, "name parameter has not been provided")
@@ -63,6 +70,25 @@ func main() {
 	// http.HandleFunc("/ping",func(w http.ResponseWriter, r *http.Request) {
 	// })
 	//http.ListenAndServe(":50090", nil)
+
+	go func() {
+
+		for v := range ch {
+			file, err := os.OpenFile("audit.io", os.O_APPEND, 777)
+			if err != nil {
+				//fmt.Println(err)
+				log.Println(err)
+			}
+			defer file.Close()
+
+			_, err = file.Write([]byte(v))
+			if err != nil {
+				log.Println(err)
+			}
+		}
+
+	}()
+
 	go func() {
 		log.Fatal(r.Run(":" + port))
 		//r.Run()
