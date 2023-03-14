@@ -253,3 +253,88 @@ func (c *Contact) GetByID(ch chan<- string) func(*gin.Context) {
 
 	}
 }
+
+func (c *Contact) GetAll(ch chan<- string) func(*gin.Context) {
+	return func(ctx *gin.Context) {
+
+		if ctx.Request.Method != "GET" {
+			ctx.String(http.StatusNotImplemented, "http method not implementd")
+			ctx.Abort()
+			return
+		}
+
+		if contacts, err := c.Contact.GetAll(); err != nil {
+
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		} else {
+			ch <- "successfully fetched all recordson " + time.Now().String()
+			ctx.JSON(http.StatusAccepted, contacts)
+			ctx.Abort()
+			return
+		}
+
+	}
+}
+
+func (c *Contact) GetAllBy(ch chan<- string) func(*gin.Context) {
+	return func(ctx *gin.Context) {
+		var (
+			err           error
+			skip, limit   string
+			_skip, _limit int
+			ok            bool
+		)
+
+		if ctx.Request.Method != "GET" {
+			ctx.String(http.StatusNotImplemented, "http method not implementd")
+			ctx.Abort()
+			return
+		}
+
+		if limit, ok = ctx.Params.Get("limit"); !ok {
+			ctx.String(http.StatusBadRequest, "limit not found")
+			ctx.Abort()
+			return
+		}
+
+		if skip, ok = ctx.Params.Get("skip"); !ok {
+			ctx.String(http.StatusBadRequest, "skip not found")
+			ctx.Abort()
+			return
+		}
+
+		_skip, err = strconv.Atoi(skip)
+		if err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		}
+		_limit, err = strconv.Atoi(limit)
+		if err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		}
+
+		if ctx.Request.Method != "GET" {
+			ctx.String(http.StatusNotImplemented, "http method not implementd")
+			ctx.Abort()
+			return
+		}
+
+		if contacts, err := c.Contact.GetAllBy(_skip, _limit); err != nil {
+
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		} else {
+			ch <- "successfully fetched all records by skip and limit on " + time.Now().String()
+			ctx.JSON(http.StatusAccepted, contacts)
+			ctx.Abort()
+			return
+		}
+
+	}
+}

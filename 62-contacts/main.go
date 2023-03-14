@@ -59,8 +59,8 @@ func main() {
 
 	r.GET("/contact/get/:id", chandler.GetByID(ch))
 	//r.PUT("/contact/update/d/:id", chandler.UpdateByD)
-	//r.GET("/contact/get/all", chandler.GetAll(ch))
-
+	r.GET("/contact/get/all", chandler.GetAll(ch))
+	r.GET("/contact/get/all/:skip/:limit", chandler.GetAllBy(ch))
 	r.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
 		if name, ok := c.Params.Get("name"); !ok {
 			c.String(http.StatusBadRequest, "name parameter has not been provided")

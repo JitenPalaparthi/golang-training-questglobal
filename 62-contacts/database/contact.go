@@ -45,6 +45,35 @@ func (c *Contact) GetBy(id int) (contact *models.Contact, err error) {
 	return contact, nil
 }
 
+func (c *Contact) GetAll() (contacts []models.Contact, err error) {
+	contacts = make([]models.Contact, 0)
+	tx := c.DB.Find(&contacts)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	return contacts, nil
+}
+
+func (c *Contact) GetAllBy(skip, limit int) (contacts []models.Contact, err error) {
+	contacts = make([]models.Contact, 0)
+	//tx := c.DB.Find(&contacts)
+	tx := c.DB.Offset(skip).Limit(limit).Find(&contacts)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	return contacts, nil
+}
+
+func (c *Contact) SearchBy(search map[string]any) (contacts []models.Contact, err error) {
+	contacts = make([]models.Contact, 0)
+	//tx := c.DB.Find(&contacts)
+	tx := c.DB.Find(&contacts)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	return contacts, nil
+}
+
 func (c *Contact) Delete(id int) (rows int, err error) {
 	tx := c.DB.Delete(&models.Contact{}, id)
 	if tx.Error != nil {
