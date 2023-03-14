@@ -10,6 +10,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
+	"gitlab.stackroute.in/JitenP/golang-training-questglobal/handlers"
 )
 
 var (
@@ -44,6 +45,10 @@ func main() {
 		log.Println(db)
 	}
 
+	chandler := new(handlers.Contact) //creating new instance of handler
+	chandler.DB = db
+
+	r.POST("/contact/add", chandler.Create())
 	r.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
 		if name, ok := c.Params.Get("name"); !ok {
 			c.String(http.StatusBadRequest, "name parameter has not been provided")

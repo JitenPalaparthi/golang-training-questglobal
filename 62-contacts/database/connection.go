@@ -4,8 +4,7 @@ import (
 	"log"
 	"time"
 
-	"gorm.io/driver/mysql"
-	_ "gorm.io/driver/postgres"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -19,7 +18,7 @@ var (
 func Connect(dsn string) (db *gorm.DB, err error) {
 	var count uint8
 retry:
-	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{}) //gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{}) //gorm.Open(mysql.Open(dsn), &gorm.Config{}) //gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		count++
 		if count <= MAX_NUMBEROF_RETRIES {
