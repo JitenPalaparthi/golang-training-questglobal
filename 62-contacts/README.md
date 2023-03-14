@@ -9,3 +9,11 @@
 - to delete a container
 
 ```docker rm -f containerid```
+
+- to start mysql
+
+```docker run -d --name mysql1 -p 53306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=user -e MYSQL_PASSWORD=password -e MYSQL_DATABASE=contactsdb mysql```
+
+- to start adminer (Webased GUI for databases like mysql,postgres,mongodb,oracle,MS Sql,elasticsearch)
+
+```docker run -d --name=database-gui -p 8080:8080 adminer```

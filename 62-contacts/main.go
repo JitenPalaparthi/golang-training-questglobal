@@ -15,15 +15,19 @@ import (
 var (
 	port string
 	dsn  string //= "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai"
+// for mysql: --dsn="user:password@tcp(127.0.0.1:53306)/contactsdb?charset=utf8mb4&parseTime=True&loc=Local"
 )
 
 func main() {
 	port = os.Getenv("PORT")
 	if port == "" {
 		flag.StringVar(&port, "port", "8080", "--port=8080 or --port 8080 or -port 8080")
-		flag.StringVar(&dsn, "dsn", "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai", "--dsn=host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai")
-		flag.Parse()
 	}
+	if dsn == "" {
+		flag.StringVar(&dsn, "dsn", "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai", "--dsn=host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai")
+	}
+	flag.Parse()
+
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		m := &Message{Status: "pong"}
