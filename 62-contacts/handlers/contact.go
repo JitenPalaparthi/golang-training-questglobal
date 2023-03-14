@@ -160,3 +160,96 @@ func (c *Contact) UpdateBy(ch chan<- string) func(*gin.Context) {
 
 	}
 }
+
+func (c *Contact) DeleteBy(ch chan<- string) func(*gin.Context) {
+	return func(ctx *gin.Context) {
+		var (
+			err error
+			id  string
+			_id int
+			ok  bool
+		)
+
+		if ctx.Request.Method != "DELETE" {
+			ctx.String(http.StatusNotImplemented, "http method not implementd")
+			ctx.Abort()
+			return
+		}
+
+		if id, ok = ctx.Params.Get("id"); !ok {
+			ctx.String(http.StatusBadRequest, "invalid id")
+			ctx.Abort()
+			return
+		}
+
+		_id, err = strconv.Atoi(id)
+		if err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		}
+
+		if rowAffected, err := c.Delete(_id); err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		} else if rowAffected == 0 {
+			ctx.String(http.StatusBadRequest, "no data found with the given id->"+id)
+			ctx.Abort()
+			return
+		} else {
+			ch <- "successfully deleted on " + time.Now().String()
+			ctx.JSON(http.StatusAccepted, rowAffected)
+			ctx.Abort()
+			return
+		}
+
+	}
+}
+
+func (c *Contact) GetByID(ch chan<- string) func(*gin.Context) {
+	return func(ctx *gin.Context) {
+		var (
+			err error
+			id  string
+			_id int
+			ok  bool
+		)
+
+		if ctx.Request.Method != "GET" {
+			ctx.String(http.StatusNotImplemented, "http method not implementd")
+			ctx.Abort()
+			return
+		}
+
+		if id, ok = ctx.Params.Get("id"); !ok {
+			ctx.String(http.StatusBadRequest, "id not found")
+			ctx.Abort()
+			return
+		}
+
+		_id, err = strconv.Atoi(id)
+		if err != nil {
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		}
+
+		if contact, err := c.GetBy(_id); err != nil {
+			if err.Error() == "record not found" {
+				ctx.String(http.StatusBadRequest, "no data with the given id->"+id)
+				ctx.Abort()
+				return
+			}
+			ctx.String(http.StatusBadRequest, err.Error())
+			ctx.Abort()
+			return
+		} else {
+			ch <- "successfully fetched on " + time.Now().String()
+			ctx.JSON(http.StatusAccepted, contact)
+			ctx.Abort()
+			return
+		}
+
+	}
+}

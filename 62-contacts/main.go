@@ -49,12 +49,17 @@ func main() {
 	chandler := new(handlers.Contact) //creating new instance of handler
 	chandler.DB = db
 
-	ch = make(chan string, 2)
+	ch = make(chan string, 4)
 
 	r.POST("/contact/add", chandler.Create(ch))
 
 	r.PUT("/contact/update/:id", chandler.UpdateBy(ch))
+
+	r.DELETE("/contact/delete/:id", chandler.DeleteBy(ch))
+
+	r.GET("/contact/get/:id", chandler.GetByID(ch))
 	//r.PUT("/contact/update/d/:id", chandler.UpdateByD)
+	//r.GET("/contact/get/all", chandler.GetAll(ch))
 
 	r.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
 		if name, ok := c.Params.Get("name"); !ok {
@@ -72,21 +77,19 @@ func main() {
 	//http.ListenAndServe(":50090", nil)
 
 	go func() {
-
 		for v := range ch {
-			file, err := os.OpenFile("audit.io", os.O_APPEND, 777)
+			file, err := os.OpenFile("audit.io", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 			if err != nil {
 				//fmt.Println(err)
 				log.Println(err)
 			}
 			defer file.Close()
 
-			_, err = file.Write([]byte(v))
+			_, err = file.WriteString(v + "\n")
 			if err != nil {
 				log.Println(err)
 			}
 		}
-
 	}()
 
 	go func() {

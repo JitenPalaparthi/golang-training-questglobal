@@ -45,7 +45,7 @@ func (c *Contact) GetBy(id int) (contact *models.Contact, err error) {
 	return contact, nil
 }
 
-func (c *Contact) DeleteBy(id int) (rows int, err error) {
+func (c *Contact) Delete(id int) (rows int, err error) {
 	tx := c.DB.Delete(&models.Contact{}, id)
 	if tx.Error != nil {
 		return 0, tx.Error
