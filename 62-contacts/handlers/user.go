@@ -7,11 +7,17 @@ import (
 	"github.com/gin-gonic/gin"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/models"
+
+	jwt_lib "github.com/dgrijalva/jwt-go"
 )
 
 type User struct {
 	database.User // promoted
 }
+
+var (
+	secretCode = "IAmTheSecretCode"
+)
 
 func (c *User) Register(ch chan<- string) func(*gin.Context) {
 	return func(ctx *gin.Context) {
@@ -85,7 +91,21 @@ func (c *User) Login(ch chan<- string) func(*gin.Context) {
 			return
 		} else {
 			ch <- "successfully regsterd at " + time.Now().String()
-			ctx.String(http.StatusOK, "Sucessfully logged in")
+
+			// jwt work
+
+			token := jwt_lib.New(jwt_lib.GetSigningMethod("HS256")) // Create a new instance of the token with a given algo
+			token.Claims = jwt_lib.MapClaims{
+				"id":  user.UName,
+				"exp": time.Now().Add(time.Hour * 1).Unix(),
+			}
+
+			tokenstring, err := token.SignedString([]byte(secretCode))
+			if err != nil {
+				ctx.String(http.StatusBadRequest, err.Error())
+				ctx.Abort()
+			}
+			ctx.String(http.StatusOK, tokenstring)
 			ctx.Abort()
 			return
 		}

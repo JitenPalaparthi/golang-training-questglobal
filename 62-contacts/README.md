@@ -17,3 +17,6 @@
 - to start adminer (Webased GUI for databases like mysql,postgres,mongodb,oracle,MS Sql,elasticsearch)
 
 ```docker run -d --name=database-gui -p 8080:8080 adminer```
+
+- JWT : JSON Web Token
+

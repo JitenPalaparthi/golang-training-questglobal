@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gin-gonic/contrib/jwt"
 	"github.com/gin-gonic/gin"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/handlers"
@@ -16,6 +17,8 @@ var (
 	dsn  string //= "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai"
 	// for mysql: --dsn="user:password@tcp(127.0.0.1:53306)/contactsdb?charset=utf8mb4&parseTime=True&loc=Local"
 	ch chan string
+
+	secretCode = "IAmTheSecretCode"
 )
 
 func main() {
@@ -57,6 +60,7 @@ func main() {
 
 	private_v1 := r.Group("v1/private")
 	{
+		private_v1.Use(jwt.Auth(secretCode)) // This is middleware
 		private_v1.POST("/contact/add", cHandler.Create(ch))
 		private_v1.PUT("/contact/update/:id", cHandler.UpdateBy(ch))
 		private_v1.DELETE("/contact/delete/:id", cHandler.DeleteBy(ch))
