@@ -2,11 +2,9 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
@@ -31,13 +29,6 @@ func main() {
 	flag.Parse()
 
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		m := &Message{Status: "pong"}
-		c.JSON(http.StatusOK, m)
-		//c.XML(http.StatusOK, gin.H{"message": "pong"})
-		//c.String(http.StatusOK, "pong")
-		// c.XML(http.StatusOK, m)
-	})
 
 	db, err := database.Connect(dsn)
 	if err != nil {
@@ -45,37 +36,44 @@ func main() {
 	} else {
 		log.Println(db)
 	}
+	ch = make(chan string, 10)
 
-	chandler := new(handlers.Contact) //creating new instance of handler
-	chandler.DB = db
+	uHandler := new(handlers.User)
+	uHandler.DB = db
 
-	ch = make(chan string, 4)
+	public_v1 := r.Group("/v1/public")
+	{
+		public_v1.GET("/ping", func(c *gin.Context) {
+			m := &Message{Status: "pong"}
+			c.JSON(http.StatusOK, m)
+		})
+		public_v1.POST("/login", uHandler.Login(ch))
+		public_v1.POST("/register", uHandler.Register(ch))
 
-	r.POST("/contact/add", chandler.Create(ch))
+	}
 
-	r.PUT("/contact/update/:id", chandler.UpdateBy(ch))
+	cHandler := new(handlers.Contact) //creating new instance of handler
+	cHandler.DB = db
 
-	r.DELETE("/contact/delete/:id", chandler.DeleteBy(ch))
-
-	r.GET("/contact/get/:id", chandler.GetByID(ch))
-	//r.PUT("/contact/update/d/:id", chandler.UpdateByD)
-	r.GET("/contact/get/all", chandler.GetAll(ch))
-	r.GET("/contact/get/all/:skip/:limit", chandler.GetAllBy(ch))
-	r.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
-		if name, ok := c.Params.Get("name"); !ok {
-			c.String(http.StatusBadRequest, "name parameter has not been provided")
-			c.Abort()
-		} else {
-			c.String(http.StatusOK, "Hello "+name)
-		}
-		//c.Abort()
-		c.Next()
-	}, Audit)
-
-	// http.HandleFunc("/ping",func(w http.ResponseWriter, r *http.Request) {
-	// })
-	//http.ListenAndServe(":50090", nil)
-
+	private_v1 := r.Group("v1/private")
+	{
+		private_v1.POST("/contact/add", cHandler.Create(ch))
+		private_v1.PUT("/contact/update/:id", cHandler.UpdateBy(ch))
+		private_v1.DELETE("/contact/delete/:id", cHandler.DeleteBy(ch))
+		private_v1.GET("/contact/get/:id", cHandler.GetByID(ch))
+		private_v1.GET("/contact/get/all", cHandler.GetAll(ch))
+		private_v1.GET("/contact/get/all/:skip/:limit", cHandler.GetAllBy(ch))
+		private_v1.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
+			if name, ok := c.Params.Get("name"); !ok {
+				c.String(http.StatusBadRequest, "name parameter has not been provided")
+				c.Abort()
+			} else {
+				c.String(http.StatusOK, "Hello "+name)
+			}
+			//c.Abort()
+			c.Next()
+		}, Audit)
+	}
 	go func() {
 		for v := range ch {
 			file, err := os.OpenFile("audit.io", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
@@ -92,17 +90,7 @@ func main() {
 		}
 	}()
 
-	go func() {
-		log.Fatal(r.Run(":" + port))
-		//r.Run()
-	}()
-
-	count := 0
-	for {
-		count++
-		time.Sleep(time.Second * 10)
-		fmt.Println("This is being executed for the past-->", count*10, "seconds")
-	}
+	log.Fatal(r.Run(":" + port))
 
 }
 
