@@ -22,7 +22,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ContactClient interface {
-	Create(ctx context.Context, in *ContactIn, opts ...grpc.CallOption) (*GeneralResponse, error)
+	Create(ctx context.Context, in *ContactMessage, opts ...grpc.CallOption) (*GeneralResponse, error)
+	Delete(ctx context.Context, in *ByIDRequest, opts ...grpc.CallOption) (*GeneralResponse, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*GeneralResponse, error)
+	GetBy(ctx context.Context, in *ByIDRequest, opts ...grpc.CallOption) (*ContactMessage, error)
+	GetAll(ctx context.Context, in *NoIn, opts ...grpc.CallOption) (*ContactMessages, error)
 }
 
 type contactClient struct {
@@ -33,9 +37,45 @@ func NewContactClient(cc grpc.ClientConnInterface) ContactClient {
 	return &contactClient{cc}
 }
 
-func (c *contactClient) Create(ctx context.Context, in *ContactIn, opts ...grpc.CallOption) (*GeneralResponse, error) {
+func (c *contactClient) Create(ctx context.Context, in *ContactMessage, opts ...grpc.CallOption) (*GeneralResponse, error) {
 	out := new(GeneralResponse)
 	err := c.cc.Invoke(ctx, "/contactspb.Contact/Create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *contactClient) Delete(ctx context.Context, in *ByIDRequest, opts ...grpc.CallOption) (*GeneralResponse, error) {
+	out := new(GeneralResponse)
+	err := c.cc.Invoke(ctx, "/contactspb.Contact/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *contactClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*GeneralResponse, error) {
+	out := new(GeneralResponse)
+	err := c.cc.Invoke(ctx, "/contactspb.Contact/Update", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *contactClient) GetBy(ctx context.Context, in *ByIDRequest, opts ...grpc.CallOption) (*ContactMessage, error) {
+	out := new(ContactMessage)
+	err := c.cc.Invoke(ctx, "/contactspb.Contact/GetBy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *contactClient) GetAll(ctx context.Context, in *NoIn, opts ...grpc.CallOption) (*ContactMessages, error) {
+	out := new(ContactMessages)
+	err := c.cc.Invoke(ctx, "/contactspb.Contact/GetAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +86,11 @@ func (c *contactClient) Create(ctx context.Context, in *ContactIn, opts ...grpc.
 // All implementations must embed UnimplementedContactServer
 // for forward compatibility
 type ContactServer interface {
-	Create(context.Context, *ContactIn) (*GeneralResponse, error)
+	Create(context.Context, *ContactMessage) (*GeneralResponse, error)
+	Delete(context.Context, *ByIDRequest) (*GeneralResponse, error)
+	Update(context.Context, *UpdateRequest) (*GeneralResponse, error)
+	GetBy(context.Context, *ByIDRequest) (*ContactMessage, error)
+	GetAll(context.Context, *NoIn) (*ContactMessages, error)
 	mustEmbedUnimplementedContactServer()
 }
 
@@ -54,8 +98,20 @@ type ContactServer interface {
 type UnimplementedContactServer struct {
 }
 
-func (UnimplementedContactServer) Create(context.Context, *ContactIn) (*GeneralResponse, error) {
+func (UnimplementedContactServer) Create(context.Context, *ContactMessage) (*GeneralResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedContactServer) Delete(context.Context, *ByIDRequest) (*GeneralResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedContactServer) Update(context.Context, *UpdateRequest) (*GeneralResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (UnimplementedContactServer) GetBy(context.Context, *ByIDRequest) (*ContactMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBy not implemented")
+}
+func (UnimplementedContactServer) GetAll(context.Context, *NoIn) (*ContactMessages, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
 }
 func (UnimplementedContactServer) mustEmbedUnimplementedContactServer() {}
 
@@ -71,7 +127,7 @@ func RegisterContactServer(s grpc.ServiceRegistrar, srv ContactServer) {
 }
 
 func _Contact_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ContactIn)
+	in := new(ContactMessage)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -83,7 +139,79 @@ func _Contact_Create_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/contactspb.Contact/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContactServer).Create(ctx, req.(*ContactIn))
+		return srv.(ContactServer).Create(ctx, req.(*ContactMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Contact_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContactServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/contactspb.Contact/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContactServer).Delete(ctx, req.(*ByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Contact_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContactServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/contactspb.Contact/Update",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContactServer).Update(ctx, req.(*UpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Contact_GetBy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContactServer).GetBy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/contactspb.Contact/GetBy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContactServer).GetBy(ctx, req.(*ByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Contact_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NoIn)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContactServer).GetAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/contactspb.Contact/GetAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContactServer).GetAll(ctx, req.(*NoIn))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -98,6 +226,22 @@ var Contact_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _Contact_Create_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _Contact_Delete_Handler,
+		},
+		{
+			MethodName: "Update",
+			Handler:    _Contact_Update_Handler,
+		},
+		{
+			MethodName: "GetBy",
+			Handler:    _Contact_GetBy_Handler,
+		},
+		{
+			MethodName: "GetAll",
+			Handler:    _Contact_GetAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
