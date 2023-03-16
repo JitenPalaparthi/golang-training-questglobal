@@ -5,8 +5,17 @@ import "google/protobuf/struct.proto";
 
 option go_package = "gitlab.stackroute.in/JitenP/golang-training-questglobal/contactspb";
 
+message ContactCreateMessage{
+    string Name =2;
+    string Address=3;
+    string Email=4;
+    string PhoneNumber=5;
+    string Status=6;
+    int64  LastModified=7;
+}
+
 message ContactMessage{
-    uint64 ID=1;
+    uint64  ID=1;
     string Name =2;
     string Address=3;
     string Email=4;
@@ -37,7 +46,7 @@ message NoIn{
 }
 
 service Contact{
-    rpc Create(ContactMessage) returns (GeneralResponse);
+    rpc Create(ContactCreateMessage) returns (GeneralResponse);
     rpc Delete(ByIDRequest)returns (GeneralResponse);
     rpc Update(UpdateRequest)returns (GeneralResponse);
     rpc GetBy(ByIDRequest)returns(ContactMessage);

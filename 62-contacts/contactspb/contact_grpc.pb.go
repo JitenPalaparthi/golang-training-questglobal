@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ContactClient interface {
-	Create(ctx context.Context, in *ContactMessage, opts ...grpc.CallOption) (*GeneralResponse, error)
+	Create(ctx context.Context, in *ContactCreateMessage, opts ...grpc.CallOption) (*GeneralResponse, error)
 	Delete(ctx context.Context, in *ByIDRequest, opts ...grpc.CallOption) (*GeneralResponse, error)
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*GeneralResponse, error)
 	GetBy(ctx context.Context, in *ByIDRequest, opts ...grpc.CallOption) (*ContactMessage, error)
@@ -37,7 +37,7 @@ func NewContactClient(cc grpc.ClientConnInterface) ContactClient {
 	return &contactClient{cc}
 }
 
-func (c *contactClient) Create(ctx context.Context, in *ContactMessage, opts ...grpc.CallOption) (*GeneralResponse, error) {
+func (c *contactClient) Create(ctx context.Context, in *ContactCreateMessage, opts ...grpc.CallOption) (*GeneralResponse, error) {
 	out := new(GeneralResponse)
 	err := c.cc.Invoke(ctx, "/contactspb.Contact/Create", in, out, opts...)
 	if err != nil {
@@ -86,7 +86,7 @@ func (c *contactClient) GetAll(ctx context.Context, in *NoIn, opts ...grpc.CallO
 // All implementations must embed UnimplementedContactServer
 // for forward compatibility
 type ContactServer interface {
-	Create(context.Context, *ContactMessage) (*GeneralResponse, error)
+	Create(context.Context, *ContactCreateMessage) (*GeneralResponse, error)
 	Delete(context.Context, *ByIDRequest) (*GeneralResponse, error)
 	Update(context.Context, *UpdateRequest) (*GeneralResponse, error)
 	GetBy(context.Context, *ByIDRequest) (*ContactMessage, error)
@@ -98,7 +98,7 @@ type ContactServer interface {
 type UnimplementedContactServer struct {
 }
 
-func (UnimplementedContactServer) Create(context.Context, *ContactMessage) (*GeneralResponse, error) {
+func (UnimplementedContactServer) Create(context.Context, *ContactCreateMessage) (*GeneralResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedContactServer) Delete(context.Context, *ByIDRequest) (*GeneralResponse, error) {
@@ -127,7 +127,7 @@ func RegisterContactServer(s grpc.ServiceRegistrar, srv ContactServer) {
 }
 
 func _Contact_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ContactMessage)
+	in := new(ContactCreateMessage)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -139,7 +139,7 @@ func _Contact_Create_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/contactspb.Contact/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContactServer).Create(ctx, req.(*ContactMessage))
+		return srv.(ContactServer).Create(ctx, req.(*ContactCreateMessage))
 	}
 	return interceptor(ctx, in, info, handler)
 }

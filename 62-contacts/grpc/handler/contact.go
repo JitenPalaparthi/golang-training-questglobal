@@ -14,7 +14,7 @@ type Contact struct {
 	database.Contact //promoted field
 }
 
-func (c *Contact) Create(ctx context.Context, in *pb.ContactMessage) (*pb.GeneralResponse, error) {
+func (c *Contact) Create(ctx context.Context, in *pb.ContactCreateMessage) (*pb.GeneralResponse, error) {
 	contact := new(models.Contact)
 	contact.Email = in.Email
 	contact.Address = in.Address
