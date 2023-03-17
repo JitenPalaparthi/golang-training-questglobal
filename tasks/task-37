@@ -1,0 +1,12 @@
+gRPC implementation
+
+- create a proto file
+
+Employee(The same one that was given in the aseessment-2)
+
+- Compile and generate it with protoc and other go based grpc generators.
+
+- implement handlers for CRUD operations.
+
+
+
