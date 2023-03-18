@@ -14,20 +14,29 @@ func main() {
 
 	c.Nums = []any{10.3, false, 13.1, 14, "Hello World"}
 
-	s = c.Add() // since variable already created no need to use : , just assign a value
+	s1 := c.Add() // since variable already created no need to use : , just assign a value
 
-	fmt.Println("Sum of ints", s)
+	fmt.Println("Sum of ints", s1)
 
 	var (
 		i8  int8  = 5
 		i16 int16 = 3213
 	)
 
-	as := []any{10, 12.3, false, true, "hello", 13, 14.567, i8, i16}
+	as1 := []any{10, 12.3, false, true, "hello", 13, 14.567, i8, i16}
 
-	s2 := anySlice(as).Add()
+	s2 := anySlice(as1).Add()
 	fmt.Println("Sum of", s2)
 
+	as2 := make(anySlice, 6)
+	as2[0] = 1
+	as2[1] = i8
+	as2[2] = "Hello World"
+	as2[3] = false
+	as2[4] = complex(12, 13.5)
+	as2[5] = i16
+	s3 := as2.Add()
+	fmt.Println("Sum of", s3)
 }
 
 //  Primitive types, Defined Types or builtin types
