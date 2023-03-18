@@ -12,7 +12,7 @@ func main() {
 		i := 1
 		for {
 			if i == 10 {
-				runtime.Goexit()
+				runtime.Goexit() // return or break statement..
 			}
 			go fmt.Println("Hello World-->", i)
 			i++
