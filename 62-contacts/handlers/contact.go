@@ -1,17 +1,21 @@
 package handlers
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
+	"gitlab.stackroute.in/JitenP/golang-training-questglobal/mb"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/models"
 )
 
 type Contact struct {
 	database.Contact // promoted
+	mb.Kafka         // kafka related messages
 }
 
 func (c *Contact) Create(ch chan<- string) func(*gin.Context) {
@@ -52,6 +56,10 @@ func (c *Contact) Create(ch chan<- string) func(*gin.Context) {
 			return
 		} else {
 			ch <- "successfully updated on " + time.Now().String()
+			bytes, _ := json.Marshal(contact)
+			err := c.Kafka.WriteMessage(bytes, "Contact-Created") // producer
+
+			fmt.Println(err)
 			ctx.JSON(http.StatusCreated, contact)
 			ctx.Abort()
 			return
