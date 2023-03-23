@@ -22,11 +22,11 @@ RUN apt update && \
     apt install curl -y
 
 RUN curl -OL https://golang.org/dl/go1.20.2.linux-amd64.tar.gz && \
-tar -C /usr/local -xvf go1.20.2.linux-amd64.tar.gz && \
-export PATH=$PATH:/usr/local/go/bin
+tar -C /usr/local -xvf go1.20.2.linux-amd64.tar.gz
 
+ENV PATH="${PATH}:/usr/local/go/bin"
 
-CMD [ "/usr/local/go/bin/go","version" ]
+CMD [ "go","version" ]
 
 # apt update 
 # apt install vim -y
