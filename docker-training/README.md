@@ -12,3 +12,7 @@
 - to push docker image to the repo
 
 ```docker push jpalaparthi/sample:v0.0.1```
+
+- to run container
+
+```docker run -i -t --name us2 jpalaparthi/sample:v0.0.2```

@@ -13,15 +13,20 @@ WORKDIR ${DIRNAME}
 # to add a file from source to destination
 ADD README.md .
 
-#ADD https://golang.org/dl/go1.20.2.linux-amd64.tar.gz/ .
+#   ADD https://go.dev/dl/go1.20.2.linux-amd64.tar.gz/ .
 
 COPY misc/ misc/
 
 RUN apt update && \
-    apt install vim -y
+    apt install vim -y && \
+    apt install curl -y
+
+RUN curl -OL https://golang.org/dl/go1.20.2.linux-amd64.tar.gz && \
+tar -C /usr/local -xvf go1.20.2.linux-amd64.tar.gz && \
+export PATH=$PATH:/usr/local/go/bin
 
 
-CMD [ "bash" ]
+CMD [ "/usr/local/go/bin/go","version" ]
 
 # apt update 
 # apt install vim -y
