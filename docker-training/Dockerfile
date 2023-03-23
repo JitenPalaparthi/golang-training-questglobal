@@ -16,6 +16,7 @@ ADD README.md .
 #   ADD https://go.dev/dl/go1.20.2.linux-amd64.tar.gz/ .
 
 COPY misc/ misc/
+COPY helloworld/main.go .
 
 RUN apt update && \
     apt install vim -y && \
@@ -26,7 +27,13 @@ tar -C /usr/local -xvf go1.20.2.linux-amd64.tar.gz
 
 ENV PATH="${PATH}:/usr/local/go/bin"
 
-CMD [ "go","version" ]
+ENV PORT=8080
+
+EXPOSE ${PORT}
+
+ENTRYPOINT [ "go","run","main.go" ]
+
+#CMD [ "go","run","main.go" ]
 
 # apt update 
 # apt install vim -y
