@@ -14,3 +14,5 @@
 
 - Container must automatically connect to the database and work.
 
+- using postman or curl , you should able to perform operations
+
