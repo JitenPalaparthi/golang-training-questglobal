@@ -17,6 +17,6 @@ RUN make proto tidy build
 FROM scratch
 
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
-COPY --from=builder /go/src/demo/demo /demo
+COPY --from=builder /go/src/helloworld/demo /demo
 ENTRYPOINT ["/demo"]
 CMD []
