@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 var (
@@ -31,10 +33,23 @@ func main() {
 		}
 	}()
 
-	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
+	router := mux.NewRouter()
+
+	router.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "pong")
 	})
 
+	router.HandleFunc("/greet/{name}", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintf(w, "Hello: %v\n", vars["name"])
+	})
+
+	// http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
+	// 	fmt.Fprintln(w, "pong")
+	// })
+
+	http.Handle("/", router)
 	http.ListenAndServe(":"+port, nil)
 }
 
