@@ -43,7 +43,7 @@ func main() {
 		vars := mux.Vars(r)
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprintf(w, "Hello: %v\n", vars["name"])
-	})
+	}).Methods("GET")
 
 	// http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 	// 	fmt.Fprintln(w, "pong")

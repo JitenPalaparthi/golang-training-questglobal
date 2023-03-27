@@ -3,18 +3,16 @@ FROM golang:alpine
 
 ENV CGO_ENABLED=0 GOOS=linux
 WORKDIR /go/src/hellworld
-
 #apk is simialr to apt or apt-get in ubuntu
 # in fedora it is called yum
+COPY helloworld/ /go/src/hellworld/
 RUN apk --update --no-cache add ca-certificates gcc libtool make musl-dev git
 RUN go mod tidy
 RUN go build -o app main.go
 
 ENV PORT=8080
-
 EXPOSE ${PORT}
-
 ENTRYPOINT [ "./app" ]
-
+# CMD ["./app"]
 
 
