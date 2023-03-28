@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    name: myapp
+  #namespace: sample
+spec:
+  containers:
+  - name: sampleapp
+    image:  jpalaparthi/samplealpinestage:v0.0.2
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080
