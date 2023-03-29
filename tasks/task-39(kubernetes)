@@ -1,0 +1,3 @@
+- Create a namespace space dev (If already there no issues)
+- Deploy the app(Docker images) as 4 replicas.
+- Scale the app by editing replicas from 4 to 10.

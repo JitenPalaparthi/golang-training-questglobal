@@ -51,5 +51,10 @@
 
 ```kubectl create -f sample-namespace.yaml```
 
+- edit any deplyment
+
+```kubectl edit deply sample-deployent.yaml -n dev```
+
+
 
 

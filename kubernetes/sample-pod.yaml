@@ -4,7 +4,7 @@ metadata:
   name: myapp
   labels:
     name: myapp
-  #namespace: sample
+  namespace: dev
 spec:
   containers:
   - name: sampleapp

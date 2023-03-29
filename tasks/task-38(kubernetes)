@@ -1,0 +1,3 @@
+- create a saperate namespace called dev
+- Create a pod and deploy in kubernetes from your docker image. Deploy it in dev namespace.
+

@@ -17,7 +17,7 @@ WORKDIR /app
 COPY --from=builder /go/src/helloworld/hello .
 
 ENV PORT=8080
-
+ARG type=dev
 EXPOSE ${PORT}
 
 ENTRYPOINT [ "./hello" ]

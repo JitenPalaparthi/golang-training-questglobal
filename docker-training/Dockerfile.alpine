@@ -9,7 +9,7 @@ COPY helloworld/ /go/src/hellworld/
 RUN apk --update --no-cache add ca-certificates gcc libtool make musl-dev git
 RUN go mod tidy
 RUN go build -o app main.go
-
+ARG type=dev
 ENV PORT=8080
 EXPOSE ${PORT}
 ENTRYPOINT [ "./app" ]
