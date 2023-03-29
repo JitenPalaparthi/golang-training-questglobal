@@ -55,6 +55,20 @@
 
 ```kubectl edit deply sample-deployent.yaml -n dev```
 
+- deployment means there are 1 or more pods running.
+- when user wants to access any pod, there must a service.
+- the service is an abstraction layer for pods[deployments, replicasets,replicationControllers,normal pod etc]
+- service has a load balancer by default
+
+- Service types:
+1. ClusterIP : By default the type of the service is .The service can be accessed inside the cluster.
+2. NodePort: The service can be accessed using node ip address. Automatically port is picked by the kubernetes if not given. The port range is 30000-32767
+3. LoadBalancer: On any cloud provider clusters, this gives a url/endpoint or ip address to access the service.
+
+
+- to get services 
+
+```kubectl get svc -n dev```
 
 
 
