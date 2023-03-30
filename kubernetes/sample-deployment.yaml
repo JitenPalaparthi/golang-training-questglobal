@@ -6,6 +6,7 @@ metadata:
   labels:
     type: backend
     environment: development
+    app: myappdeployment
 spec:
   replicas: 4
   selector:

@@ -70,5 +70,9 @@
 
 ```kubectl get svc -n dev```
 
+- to test the application(only for dev purpose)
+
+```kubectl port-forward deploy/myappdeployment 58080:8080 -n dev```
+
 
 
