@@ -4,18 +4,16 @@ metadata:
   name: myappdeployment
   namespace: dev
   labels:
-    type: backend
-    environment: development
     app: myappdeployment
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
-      app: myapp
+      app: myappdeployment
   template:
     metadata:
       labels:
-        app: myapp
+        app: myappdeployment
     spec:
       containers:
       - name: mysampleapp
@@ -23,6 +21,6 @@ spec:
         resources:
           limits:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "100m"
         ports:
         - containerPort: 8080

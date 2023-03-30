@@ -63,6 +63,7 @@
 - Service types:
 1. ClusterIP : By default the type of the service is .The service can be accessed inside the cluster.
 2. NodePort: The service can be accessed using node ip address. Automatically port is picked by the kubernetes if not given. The port range is 30000-32767
+The application can be accessed using node IP address.
 3. LoadBalancer: On any cloud provider clusters, this gives a url/endpoint or ip address to access the service.
 
 
@@ -74,5 +75,13 @@
 
 ```kubectl port-forward deploy/myappdeployment 58080:8080 -n dev```
 
+- to scale n dev
 
+```kubectl scale --replicas=10 deploy/myappdeployment -n dev```
+
+- auto scale 
+
+- port-forward  (Only development and testing)
+
+```kubectl port-forward service/myappservice 58080:8080 -n dev```
 

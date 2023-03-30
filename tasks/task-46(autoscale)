@@ -1,0 +1,25 @@
+- create a kubernetes service
+- create a kubernetes deployment
+
+- run autoscaler 
+
+```kubectl autoscale deploy myappdeployment -n dev --max=10 --cpu-percent=5``` 
+
+- port-forward the service 
+
+```kubectl port-forward service/myappservice 58080:8080 -n dev```
+
+- write a golan script , to call the http service on
+
+http://localhost:58080/ping unconditionally
+
+for{
+   go func(){ 
+    resp,err:=http.Get("http://localhost:58080/ping")
+    fmt.Println(resp.Body)
+   }()
+}
+
+- how to observer scalling 
+
+```watch kubectl get pods -n dev```
