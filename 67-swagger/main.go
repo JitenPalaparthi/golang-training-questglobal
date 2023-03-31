@@ -3,6 +3,8 @@ package main
 import (
 	"net/http"
 
+	_ "demo/docs"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
