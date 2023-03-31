@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contactsapp-config
+  labels:
+    app: contactsapp
+  namespace: dev
+data:
+  DBCONN: "host=postgres.dev.svc.cluster.local user=admin password=test123 dbname=contactsdb port=5432 sslmode=disable TimeZone=Asia/Shanghai"

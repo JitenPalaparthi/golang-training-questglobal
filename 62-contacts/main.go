@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/handlers"
 )
@@ -26,6 +27,7 @@ func main() {
 	if port == "" {
 		flag.StringVar(&port, "port", "8080", "--port=8080 or --port 8080 or -port 8080")
 	}
+	dsn = os.Getenv("DBCONN")
 	if dsn == "" {
 		flag.StringVar(&dsn, "dsn", "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai", "--dsn=host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai")
 	}

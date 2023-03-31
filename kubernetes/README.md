@@ -79,7 +79,6 @@ The application can be accessed using node IP address.
 
 ```kubectl scale --replicas=10 deploy/myappdeployment -n dev```
 
-- auto scale 
 
 - port-forward  (Only development and testing)
 

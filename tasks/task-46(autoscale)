@@ -23,3 +23,6 @@ for{
 - how to observer scalling 
 
 ```watch kubectl get pods -n dev```
+
+
+
