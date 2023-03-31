@@ -11,5 +11,9 @@ func main() {
 	http.HandleFunc("/getconn", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, os.Getenv("DBCONN")) // environment variable
 	})
+
+	http.HandleFunc("/call",func(w http.ResponseWriter, r *http.Request) {
+		//fmt.Fprint(w, os.Getenv("DBCONN")) // environment variable
+	})
 	http.ListenAndServe(":8080", nil)
 }

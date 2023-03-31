@@ -84,3 +84,12 @@ The application can be accessed using node IP address.
 
 ```kubectl port-forward service/myappservice 58080:8080 -n dev```
 
+- to encode to base64
+
+```echo "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai" | base64```
+
+- to decode from base64
+
+```echo "aG9zdD1sb2NhbGhvc3QgdXNlcj1wb3N0Z3JlcyBwYXNzd29yZD1wb3N0Z3JlcyBkYm5hbWU9Y29udGFjdHNiZCBwb3J0PTU1NDMyIHNzbG1vZGU9ZGlzYWJsZSBUaW1lWm9uZT1Bc2lhL1NoYW5naGFpCg==" | base64 -d```
+
+

@@ -5,12 +5,12 @@ metadata:
   name: demo
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: Secret
 metadata:
-  name: myconfigmap
+  name: mysecret
   namespace: demo
 data:
-  DBCONN: "host=localhost user=postgres password=postgres dbname=contactsbd port=55432 sslmode=disable TimeZone=Asia/Shanghai"
+  DBCONN: aG9zdD1sb2NhbGhvc3QgdXNlcj1wb3N0Z3JlcyBwYXNzd29yZD1wb3N0Z3JlcyBkYm5hbWU9Y29udGFjdHNiZCBwb3J0PTU1NDMyIHNzbG1vZGU9ZGlzYWJsZSBUaW1lWm9uZT1Bc2lhL1NoYW5naGFpCg==
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -33,8 +33,8 @@ spec:
         env:
         - name: DBCONN
           valueFrom:
-            configMapKeyRef:
-              name: myconfigmap
+            secretKeyRef:
+              name: mysecret
               key: DBCONN 
         resources:
           limits:
@@ -55,6 +55,7 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+
 
 
 
