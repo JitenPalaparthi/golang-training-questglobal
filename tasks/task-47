@@ -1,0 +1,6 @@
+change from configmap to secret in kubernetes demoenv app.
+
+- to read 
+  - what is a secret?
+  - difference between secret and configmap
+  - fetch data from secret to env in kubernetes
