@@ -1,0 +1,51 @@
+// package main
+
+// import (
+// 	"log"
+// 	"net/http"
+
+// 	rl "github.com/ahmedash95/ratelimit"
+
+// 	"github.com/gorilla/mux"
+// )
+
+// // hold the rate limit object
+// var ratelimit rl.Limit
+
+// func main() {
+// 	// Create ratelimit
+// 	ratelimit = rl.CreateLimit("1r/s")
+// 	// Initialize Router
+// 	router := mux.NewRouter()
+// 	router.Handle("/",
+// 		RateLimitMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// 			w.Write([]byte("Hello"))
+// 		})))
+// 	// Start Server
+// 	log.Println("Starting server on port http://localhost:8000")
+// 	http.ListenAndServe(":8000", router)
+// }
+
+// // Middleware
+// func RateLimitMiddleware(h http.Handler) http.Handler {
+// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// 		ip := "127.0.0.1" // use ip or user agent any key you want
+// 		if !isValidRequest(ratelimit, ip) {
+// 			w.WriteHeader(http.StatusServiceUnavailable)
+// 			return
+// 		}
+// 		ratelimit.Hit(ip)
+// 		h.ServeHTTP(w, r)
+// 	})
+// }
+
+// func isValidRequest(l rl.Limit, key string) bool {
+// 	_, ok := l.Rates[key]
+// 	if !ok {
+// 		return true
+// 	}
+// 	if l.Rates[key].Hits == l.MaxRequests {
+// 		return false
+// 	}
+// 	return true
+// }
