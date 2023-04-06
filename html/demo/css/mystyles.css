@@ -1,0 +1,32 @@
+body {
+  background-color: aqua;
+  margin: 10px 50px 20px 0;
+  padding: 5px 5px 5px 5px;
+}
+
+h1 {
+  color: blue;
+  background-color: yellow;
+  border: 1px solid black;
+}
+
+/* p {
+  color: red;
+} */
+
+.mybgcolor {
+  background-color: rgb(29, 29, 2);
+}
+
+.box {
+  margin: 30px;
+  width: 100px;
+  height: 100px;
+  background-color: rebeccapurple;
+  transform: rotate(0.8turn);
+}
+
+#para1 {
+  text-align: center;
+  color: red;
+}
