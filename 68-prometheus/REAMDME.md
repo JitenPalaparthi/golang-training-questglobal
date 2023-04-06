@@ -1,0 +1,1 @@
+```docker run -v /home/jiten/workspace/personal/training/stackroute/golang-training-questglobal/68-prometheus/prometheus.yml:/etc/prometheus/prometheus.yml  --name p1 -d --network host prom/prometheus```

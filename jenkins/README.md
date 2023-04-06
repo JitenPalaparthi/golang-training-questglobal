@@ -6,4 +6,4 @@
 
 - to run jenkins container
 
-    ```docker run --name jenkins -p 8080:8080 -p 50000:50000 jenkins/jenkins```
+    ```docker run --name jenkins -p 18080:8080 -p 50000:50000 jenkins/jenkins```
