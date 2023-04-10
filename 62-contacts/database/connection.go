@@ -32,7 +32,7 @@ retry:
 }
 
 func Init(db *gorm.DB) error {
-	if err := db.AutoMigrate(&models.Contact{}, &models.User{}, &models.Technology{}, &models.Tip{}, &models.UserInterests{}, &models.TestMaster{}, &models.QuestionMaster{}, &models.AnswerMaster{}, &models.UserTest{}); err != nil { // f the dbtable is not existed it creates a table
+	if err := db.AutoMigrate(&models.Contact{}, &models.User{}, &models.Technology{}, &models.Tip{}, &models.Userinterests{}, &models.Testmaster{}, &models.Questionmaster{}, &models.Answermaster{}, &models.Usertest{}); err != nil { // f the dbtable is not existed it creates a table
 		return err
 	}
 	log.Println("all tables are created")

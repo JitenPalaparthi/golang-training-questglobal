@@ -16,7 +16,7 @@ type Technology struct {
 	LastModified int64  `json:"lastModified" gorm:"column:lastModified"`
 }
 
-type UserInterests struct {
+type Userinterests struct {
 	ID uint64 `json:"id"` // automatically taken as primary key
 
 	UserID uint64 `json:"userID" gorm:"column:userID"`
@@ -28,7 +28,7 @@ type UserInterests struct {
 	LastModified int64      `json:"lastModified" gorm:"column:lastModified"`
 }
 
-type TestMaster struct {
+type Testmaster struct {
 	ID            uint64 `json:"id"` // automatically taken as primary key
 	Name          string `json:"name"`
 	Description   string `json:"description"`
@@ -38,24 +38,24 @@ type TestMaster struct {
 	LastModified  int64  `json:"lastModified" gorm:"column:lastModified"`
 }
 
-type QuestionMaster struct {
+type Questionmaster struct {
 	ID           uint64     `json:"id"` // automatically taken as primary key
-	TestMasterID uint64     `json:"testMasterID" gorm:"column:testMasterID"`
-	TestMaster   TestMaster `json:"testMaster" gorm:"foreignKey:testMasterID"`
+	TestmasterID uint64     `json:"testmasterID" gorm:"column:testmasterID"`
+	Testmaster   Testmaster `json:"testMaster" gorm:"foreignKey:testmasterID"`
 	Question     string     `json:"question"`
 	Points       uint8      `json:"points"`
 	Status       string     `json:"status"`
 	LastModified int64      `json:"lastModified" gorm:"column:lastModified"`
 }
 
-type AnswerMaster struct {
+type Answermaster struct {
 	ID uint64 `json:"id"` // automatically taken as primary key
 
-	TestMasterID uint64     `json:"testMasterID" gorm:"column:testMasterID"`
-	TestMaster   TestMaster `json:"testMaster" gorm:"foreignKey:testMasterID"`
+	TestmasterID uint64     `json:"testmasterID" gorm:"column:testmasterID"`
+	Testmaster   Testmaster `json:"testMaster" gorm:"foreignKey:testmasterID"`
 
-	QuestionMasterID uint64         `json:"questionMasterID" gorm:"column:questionMasterID"`
-	QuestionMaster   QuestionMaster `json:"questionMaster" gorm:"foreignKey:questionMasterID"`
+	QuestionmasterID uint64         `json:"questionmasterID" gorm:"column:questionmasterID"`
+	Questionmaster   Questionmaster `json:"questionmaster" gorm:"foreignKey:questionmasterID"`
 
 	Option       string `json:"option"`
 	IsAnswer     bool   `json:"isAnswer" gorm:"column:isAnswer"`
@@ -63,21 +63,21 @@ type AnswerMaster struct {
 	LastModified int64  `json:"lastModified" gorm:"column:lastModified"`
 }
 
-type UserTest struct {
+type Usertest struct {
 	ID     uint64 `json:"id"` // automatically taken as primary key
 	TestID uint64 `json:"testID" gorm:"column:testID"`
 
 	UserID uint64 `json:"userID" gorm:"column:userID"`
 	User   User   `json:"user" gorm:"foreignKey:userID"`
 
-	TestMasterID uint64     `json:"testMasterID" gorm:"column:testMasterID"`
-	TestMaster   TestMaster `json:"testMaster" gorm:"foreignKey:testMasterID"`
+	TestmasterID uint64     `json:"testmasterID" gorm:"column:testmasterID"`
+	TestMaster   Testmaster `json:"testMaster" gorm:"foreignKey:testmasterID"`
 
-	QuestionMasterID uint64         `json:"questionMasterID" gorm:"column:questionMasterID"`
-	QuestionMaster   QuestionMaster `json:"questionMaster" gorm:"foreignKey:questionMasterID"`
+	QuestionmasterID uint64         `json:"questionmasterID" gorm:"column:questionmasterID"`
+	Questionmaster   Questionmaster `json:"questionmaster" gorm:"foreignKey:questionmasterID"`
 
-	AnswerMasterID uint64       `json:"answerMasterID" gorm:"column:answerMasterID"`
-	AnswerMaster   AnswerMaster `json:"answerMaster" gorm:"foreignKey:answerMasterID"`
+	AnswermasterID uint64       `json:"answermasterID" gorm:"column:answermasterID"`
+	Answermaster   Answermaster `json:"answerMaster" gorm:"foreignKey:answermasterID"`
 
 	TestOn       uint64 `json:"testOn" gorm:"column:testOn"`
 	Status       string `json:"status"`
