@@ -4,10 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"time"
 
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
-	"gitlab.stackroute.in/JitenP/golang-training-questglobal/models"
 )
 
 var (
@@ -27,22 +25,32 @@ func main() {
 		log.Println(db)
 	}
 
-	contact := new(models.Contact)
-	contact.Name = "Jiten"
-	contact.Address = "Bangalore"
-	contact.Email = "Jitenp@outlook.Com"
-	contact.Status = "Active"
-	contact.LastModified = time.Now().Unix()
+	err = database.Init(db)
+	if err != nil {
+		fmt.Println(err)
+	}
+	// if err := db.AutoMigrate(&models.Contact{}, &models.User{}, &models.Technology{}, &models.Tip{}, &models.UserInterests{}, &models.TestMaster{}, &models.QuestionMaster{}, &models.AnswerMaster{}, &models.UserTest{}); err != nil { // f the dbtable is not existed it creates a table
+	// 	fmt.Println(err)
+	// } else {
+	// 	fmt.Println("all tables are created")
+	// }
 
-	cdb := new(database.Contact)
-	cdb.DB = db
-	fmt.Println(cdb.Add(contact))
+	// contact := new(models.Contact)
+	// contact.Name = "Jiten"
+	// contact.Address = "Bangalore"
+	// contact.Email = "Jitenp@outlook.Com"
+	// contact.Status = "Active"
+	// contact.LastModified = time.Now().Unix()
 
-	data := make(map[string]any)
-	data["phoneNumber"] = "9618558500"
-	data["address"] = "Bangalore, Yeshvantpur"
-	fmt.Println(cdb.Update(1, data))
+	// cdb := new(database.Contact)
+	// cdb.DB = db
+	// fmt.Println(cdb.Add(contact))
 
-	fmt.Println(cdb.DeleteBy(7))
+	// data := make(map[string]any)
+	// data["phoneNumber"] = "9618558500"
+	// data["address"] = "Bangalore, Yeshvantpur"
+	// fmt.Println(cdb.Update(1, data))
+
+	// fmt.Println(cdb.DeleteBy(7))
 
 }

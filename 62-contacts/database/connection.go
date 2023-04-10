@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"gitlab.stackroute.in/JitenP/golang-training-questglobal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -28,4 +29,12 @@ retry:
 		}
 	}
 	return db, err
+}
+
+func Init(db *gorm.DB) error {
+	if err := db.AutoMigrate(&models.Contact{}, &models.User{}, &models.Technology{}, &models.Tip{}, &models.UserInterests{}, &models.TestMaster{}, &models.QuestionMaster{}, &models.AnswerMaster{}, &models.UserTest{}); err != nil { // f the dbtable is not existed it creates a table
+		return err
+	}
+	log.Println("all tables are created")
+	return nil
 }
