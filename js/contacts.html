@@ -52,55 +52,29 @@
 
         const createcontacturl = "https://localhost:58080/v1/private/contact/add"
         function createContact() {
-            var contact = {
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("cors", "no-cors");
+
+            var raw = JSON.stringify({
                 "name": document.getElementById("txtname").value,
                 "email": document.getElementById("txtemail").value,
                 "address": document.getElementById("txtaddress").value,
                 "phoneNumber": document.getElementById("txtphone").value
-            }
+            });
 
-            alert(contact.name);
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
 
-
-            // fetch(createcontacturl, {
-            //     method: 'POST',
-            //     headers: {
-            //         "Content-type": "application/json"
-            //     },
-            //    // credentials: 'include',
-            //     body: JSON.stringify(contact)
-            // })
-            //     .then(res.json())
-            //     .then(res => {
-            //         // Handle response 
-            //         console.log('Response: ', res);
-            //     })
-            //     .catch(err => {
-            //         // Handle error 
-            //         console.log('Error message: ', error);
-            //     });
-            var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-myHeaders.append("cors","no-cors");
-
-var raw = JSON.stringify({
-    "name": document.getElementById("txtname").value,
-    "email": document.getElementById("txtemail").value,
-    "address": document.getElementById("txtaddress").value,
-    "phoneNumber": document.getElementById("txtphone").value
-});
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("https://localhost:58080/v1/private/contact/add", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+            fetch(createcontacturl, requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
         }
 
     </script>
