@@ -5,16 +5,18 @@
     <title>demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-const getcontactsurl="localhost:58080/v1/private/contact/get/all"
+const getcontactsurl="https://localhost:58080/v1/private/contact/get/all"
 async function getContactbyId(){
     alert("Hello World")
-const response = await fetch(getcontactsurl,{'mode': 'no-cors'});
+const response = await fetch(getcontactsurl);
 
 var data = await response.json();
     console.log(data);
+
     if (response) {
         hideloader();
     }
+    alert(data)
     show(data);
 }
 
@@ -34,7 +36,7 @@ function show(data) {
          </tr>`;
     
     // Loop to access all rows 
-    for (let r of data.list) {
+    for (let r of data) {
         tab += `<tr> 
             <td>${r.id} </td>
     <td>${r.name} </td>

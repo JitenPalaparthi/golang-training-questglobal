@@ -73,7 +73,7 @@ func main() {
 		private_v1.PUT("/contact/update/:id", cHandler.UpdateBy(ch))
 		private_v1.DELETE("/contact/delete/:id", cHandler.DeleteBy(ch))
 		private_v1.GET("/contact/get/:id", cHandler.GetByID(ch))
-		private_v1.GET("/contact/get/all", cHandler.GetAll(ch))
+		private_v1.GET("/contact/get/all", CORSMiddleware(), cHandler.GetAll(ch))
 		private_v1.GET("/contact/get/all/:skip/:limit", cHandler.GetAllBy(ch))
 		private_v1.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
 			if name, ok := c.Params.Get("name"); !ok {
@@ -102,7 +102,7 @@ func main() {
 		}
 	}()
 
-	log.Fatal(r.Run(":" + port))
+	log.Fatal(r.RunTLS(":"+port, "security/localhost.crt", "security/localhost.key"))
 
 }
 
@@ -145,10 +145,10 @@ func CORSMiddleware() gin.HandlerFunc {
 		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
 		c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
 
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
-			return
-		}
+		// if c.Request.Method == "OPTIONS" {
+		// 	c.AbortWithStatus(204)
+		// 	return
+		// }
 
 		c.Next()
 	}
