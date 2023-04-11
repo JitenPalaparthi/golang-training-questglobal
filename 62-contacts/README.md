@@ -20,8 +20,6 @@
 
 - JWT : JSON Web Token
 
-- to generate ssl 
-
 - to create tls certificate 
 
 - step -1 : to create private key and csr (certificate signing request)
@@ -34,4 +32,4 @@
 
 - once you have two files, change in your main.go file. Instead of r.Run use r.RUNTLS
   
-  -log.Fatal(r.RunTLS(":"+port, "security/localhost.crt", "security/localhost.key"))
+  -log.Fatal(r.RunTLS(":"+port, "security/localhost.crt", "security/localhost.key")

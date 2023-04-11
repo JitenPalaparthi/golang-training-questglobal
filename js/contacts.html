@@ -4,29 +4,29 @@
 <head>
     <title>demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-const getcontactsurl="https://localhost:58080/v1/private/contact/get/all"
-async function getContactbyId(){
-    alert("Hello World")
-const response = await fetch(getcontactsurl);
+    <script>
+        const getcontactsurl = "https://localhost:58080/v1/private/contact/get/all"
+        async function getContactbyId() {
 
-var data = await response.json();
-    console.log(data);
+            const response = await fetch(getcontactsurl);
 
-    if (response) {
-        hideloader();
-    }
-    alert(data)
-    show(data);
-}
+            var data = await response.json();
+            console.log(data);
 
-function hideloader() {
-    document.getElementById('loading').style.display = 'none';
-}
+            if (response) {
+                hideloader();
+            }
+            //  alert(data)
+            show(data);
+        }
 
-function show(data) {
-    let tab = 
-        `<tr>
+        function hideloader() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function show(data) {
+            let tab =
+                `<tr>
         <th>id</th>
           <th>Name</th>
           <th>email</th>
@@ -34,10 +34,10 @@ function show(data) {
           <th>phone Number</th>
           <th>status</th>
          </tr>`;
-    
-    // Loop to access all rows 
-    for (let r of data) {
-        tab += `<tr> 
+
+            // Loop to access all rows 
+            for (let r of data) {
+                tab += `<tr> 
             <td>${r.id} </td>
     <td>${r.name} </td>
     <td>${r.email}</td>
@@ -45,20 +45,97 @@ function show(data) {
     <td>${r.phoneNumber}</td>    
     <td>${r.status}</td>       
 </tr>`;
-    }
-    // Setting innerHTML as tab variable
-    document.getElementById("contacts").innerHTML = tab;
-}
+            }
+            // Setting innerHTML as tab variable
+            document.getElementById("contacts").innerHTML = tab;
+        }
 
-</script>
+        const createcontacturl = "https://localhost:58080/v1/private/contact/add"
+        function createContact() {
+            var contact = {
+                "name": document.getElementById("txtname").value,
+                "email": document.getElementById("txtemail").value,
+                "address": document.getElementById("txtaddress").value,
+                "phoneNumber": document.getElementById("txtphone").value
+            }
+
+            alert(contact.name);
+
+
+            // fetch(createcontacturl, {
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-type": "application/json"
+            //     },
+            //    // credentials: 'include',
+            //     body: JSON.stringify(contact)
+            // })
+            //     .then(res.json())
+            //     .then(res => {
+            //         // Handle response 
+            //         console.log('Response: ', res);
+            //     })
+            //     .catch(err => {
+            //         // Handle error 
+            //         console.log('Error message: ', error);
+            //     });
+            var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("cors","no-cors");
+
+var raw = JSON.stringify({
+    "name": document.getElementById("txtname").value,
+    "email": document.getElementById("txtemail").value,
+    "address": document.getElementById("txtaddress").value,
+    "phoneNumber": document.getElementById("txtphone").value
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("https://localhost:58080/v1/private/contact/add", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+        }
+
+    </script>
 </head>
 
 <body onload="getContactbyId();">
     <div id="loading">
-                <span>Loading...</span>
+        <span>Loading...</span>
     </div>
     <h1>All Contacts</h1>
     <table id="contacts"></table>
+
+    <table>
+        <h3>New Contact</h3>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" id="txtname"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="email" id="txtemail"></td>
+        </tr>
+        <tr>
+            <td>address:</td>
+            <td><input type="email" id="txtaddress"></td>
+        </tr>
+        <tr>
+            <td>phone number</td>
+            <td><input type="text" id="txtphone"></td>
+        </tr>
+        <tr>
+            <td><button id="btnsave" onclick="createContact()">Save</button></td>
+        </tr>
+    </table>
+
 </body>
 
 </html>

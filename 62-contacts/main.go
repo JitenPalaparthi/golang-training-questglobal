@@ -69,7 +69,7 @@ func main() {
 	{
 		//private_v1.Use(jwt.Auth(secretCode)) // This is middleware
 		private_v1.Use(CORSMiddleware())
-		private_v1.POST("/contact/add", cHandler.Create(ch))
+		private_v1.POST("/contact/add", CORSMiddleware(), cHandler.Create(ch))
 		private_v1.PUT("/contact/update/:id", cHandler.UpdateBy(ch))
 		private_v1.DELETE("/contact/delete/:id", cHandler.DeleteBy(ch))
 		private_v1.GET("/contact/get/:id", cHandler.GetByID(ch))
