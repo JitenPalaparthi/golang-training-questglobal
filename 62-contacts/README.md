@@ -22,6 +22,16 @@
 
 - to generate ssl 
 
-```penssl req -new -subj "/C=US/ST=Utah/CN=localhost" -newkey rsa:2048 -nodes -keyout localhost.key -out localhost.csr```
+- to create tls certificate 
 
+- step -1 : to create private key and csr (certificate signing request)
+
+```openssl req -new -subj "/C=US/ST=Utah/CN=localhost" -newkey rsa:2048 -nodes -keyout localhost.key -out localhost.csr```
+
+- step-2 : with csr get crt (certificate)
+  
 ```openssl x509 -req -days 365 -in localhost.csr -signkey localhost.key -out localhost.crt```
+
+- once you have two files, change in your main.go file. Instead of r.Run use r.RUNTLS
+  
+  -log.Fatal(r.RunTLS(":"+port, "security/localhost.crt", "security/localhost.key"))
