@@ -1,0 +1,6 @@
+company:
+  editable:
+    - city
+    - moreDetails
+    - status
+    - lastModified

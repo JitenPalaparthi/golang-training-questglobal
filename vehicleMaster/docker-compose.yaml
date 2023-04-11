@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  postgresdb:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_HOST=${DB_HOST}
+    ports:
+      - '1234:${DB_PORT}'
+    networks:
+      - appnetwork
+  vehicle_master:
+    image: jpalaparthi/vehiclemaster:v0.0.7
+    container_name: vehicle_master
+    environment:
+      - PORT= ${APP_PORT}
+      - DB_CONN= host=${DB_HOST} user=${DB_USER} password=${DB_PASSWORD} dbname=${DB_NAME} port=5432 sslmode=disable TimeZone=Asia/Shanghai
+    ports:
+      - 8080:${APP_PORT}
+    networks:
+      - appnetwork
+    depends_on:
+      - postgresdb
+# Networks to be created to facilitate communication between containers
+networks:
+  appnetwork:
+    driver: bridge

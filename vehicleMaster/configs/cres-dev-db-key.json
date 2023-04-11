@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cres-dev-366612",
+  "private_key_id": "e91ea8e47296f0aeaf5eded857a1347dd52599b9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCmnKplFxjyFtBn\nlvKALr0/77cmObHutCS5ig+Z4xNzcr9HNB7yy7umwZLZPORprjdK+dZd+/oxfE0b\nu3ZNtf440CHrH3tFklVWWICIYBD4ehOUSMU9rCPp6Bg9W2WzplnjHk1lfntSxT9H\na9F4S6gkHWEsSHoloIrNEuNRR1rYRib/jPFrmgSdvxaWzkP7DpamlW1+wrhtqdao\nLkNKWqSP6WQY3D5tGKUfX0j2OpLXvyDKY4YeBv8HCAapgScj2V8hn1fVQ63y++vQ\nvxGuwO27DXyLPDdKsopv6tWTW+rW5XVTk4ZhBtOdYSLU5/ShfeaJbud93Ns38ZPW\nsOkzX9K/AgMBAAECggEAA3/wGUoce6qtnYuzq1blVUGmX6oD/U+7vRYgofeXOl99\n6QjinFbRS+f/OxxcK0Hb0WkhN3UMT5fc7usYp4Lmlbzb46uC/OEIH+8Y2a8rtbAz\nkybrgKvW141rB90MY8AKCDGGQaxKtmjRJhjzMTxTvXr/1z7sf4S1F9M4HHD/GdGs\nTpVRGW9WtZfeqR5gnMDO2CD9eOO+Ba+k6jh/9i7jOjOzRi4QO51eA9uv9BS+AsTu\nrR9HvxIN4uxfW7D/R++uZoZD8l2qx3vjFbwT4b33WgDgOAlzXQM1i2AY+X6ViDTl\ncrbB/s//hQI3tKI+kh0YuAfMQrTnR42+X1Sqdjbq9QKBgQDjT6dXrqUYlTxyem1T\ncM8s0OFpPx/qliU6g38Hy3OY5DcxI7TNhfnIvcyTtzbkqgdGIeOwD3Eig19KdRlO\n+gbqf/6JR9qWYglpN9snumYO7aE3TK/BjDkPH4INjnYg5KW01umwxgqS2BI9BlVh\nU44C595Ib9yErLouoRXGiXwjZQKBgQC7o9eZ1XjA/WAJPqgWtLen/qIL3tv0MBwe\nSQfqDEkgKMlvq923sJcwzXxadBnPri8yBMmWgTL+dNIlWo31iGPmtHW+X8kYZL6V\nUDFWuCmyflwRsyVIVtf4YcOYaI44m25WW2/zAVIkdC3Obzov9aLx5T7Rmq5magyO\nuHwAMKvlUwKBgEAf4F1j7z8YGo1Q7DZ1xHwoEO7X1/EdmjL/lX5lbp7bApbiM8cm\n3Gg84tFpBhtLu/GU7d5k/M13shIXJqSY9AqDQRMJKijyTyVXlIOImfHsJ2aqQ4qe\nPBqAEPgyEDEHT5fMaPBtbd4vBjYg60UhhRZcwuA8bkEfWQZ+et4fOt3hAoGBAJyJ\nuUo7Dvxh5QaRYQVgSn86LNIeX/09TZfucU3OZgsQO8yP4u5lwhwSsZV8mjPqKrFd\n0RdgPbyOlOpYu2mFGWLUVg42NrvFAEHsntyr0w134TNa8tWArbgnR1gUkeGjuc8N\nhT2DcpW63qQDotVz5TZMe7W9h5UlD8jZG4nFEQLFAoGAOlOW9rK+mIrnLpTJJty4\nvhLfl4TpGAyjxgS9/3FbUiPy5biyaHL+bGy/xw0x4OC6Frm9OBz+v9+VaQPHnTQE\nGU7mOkSFrxtvVj0YL0R2MdGeCi6A8Bn1Rqik84hH7qAPF0pyPUonXHhKMF9rDb6i\n0oGi6Rg+FMZj8VkqkJmNkcA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cres-dev-service-account@cres-dev-366612.iam.gserviceaccount.com",
+  "client_id": "113190134791081985251",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cres-dev-service-account%40cres-dev-366612.iam.gserviceaccount.com"
+}

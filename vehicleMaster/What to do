@@ -1,0 +1,3 @@
+1- create docker container for the app
+2- create nomad job to run along with container
+3- run 

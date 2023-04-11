@@ -1,0 +1,15 @@
+{
+    "id":"101",
+    "name":"Thrifty",
+    "compID":"THR111",
+    "city":"Abudhabi",
+    "email":"custcare@thrifty.ae",
+    "contactDetails":"02445566,02445577",
+    "moreDetails":{
+        "registrationNo":"AUH110011",
+        "website":"www.ThriftyCarRental.ae"
+    },
+    "tags":"thrifty,abudhabi,uae",
+    "status":"active",
+    "lastModified":1671899135
+}
