@@ -52,6 +52,7 @@ func main() {
 
 	public_v1 := r.Group("/v1/public")
 	{
+		public_v1.Use(CORSMiddleware())
 		public_v1.GET("/ping", func(c *gin.Context) {
 			m := &Message{Status: "pong"}
 			c.JSON(http.StatusOK, m)
@@ -67,6 +68,7 @@ func main() {
 	private_v1 := r.Group("v1/private")
 	{
 		//private_v1.Use(jwt.Auth(secretCode)) // This is middleware
+		private_v1.Use(CORSMiddleware())
 		private_v1.POST("/contact/add", cHandler.Create(ch))
 		private_v1.PUT("/contact/update/:id", cHandler.UpdateBy(ch))
 		private_v1.DELETE("/contact/delete/:id", cHandler.DeleteBy(ch))
@@ -133,6 +135,22 @@ func Audit(c *gin.Context) {
 	_, err = file.Write([]byte(url.String()))
 	if err != nil {
 		log.Println(err)
+	}
+}
+
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Credentials", "true")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
 	}
 }
 

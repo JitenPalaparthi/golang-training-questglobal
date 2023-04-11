@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+const getcontactsurl="localhost:58080/v1/private/contact/get/all"
+async function getContactbyId(){
+    alert("Hello World")
+const response = await fetch(getcontactsurl,{'mode': 'no-cors'});
+
+var data = await response.json();
+    console.log(data);
+    if (response) {
+        hideloader();
+    }
+    show(data);
+}
+
+function hideloader() {
+    document.getElementById('loading').style.display = 'none';
+}
+
+function show(data) {
+    let tab = 
+        `<tr>
+        <th>id</th>
+          <th>Name</th>
+          <th>email</th>
+          <th>address</th>
+          <th>phone Number</th>
+          <th>status</th>
+         </tr>`;
+    
+    // Loop to access all rows 
+    for (let r of data.list) {
+        tab += `<tr> 
+            <td>${r.id} </td>
+    <td>${r.name} </td>
+    <td>${r.email}</td>
+    <td>${r.address}</td> 
+    <td>${r.phoneNumber}</td>    
+    <td>${r.status}</td>       
+</tr>`;
+    }
+    // Setting innerHTML as tab variable
+    document.getElementById("contacts").innerHTML = tab;
+}
+
+</script>
+</head>
+
+<body onload="getContactbyId();">
+    <div id="loading">
+                <span>Loading...</span>
+    </div>
+    <h1>All Contacts</h1>
+    <table id="contacts"></table>
+</body>
+
+</html>
