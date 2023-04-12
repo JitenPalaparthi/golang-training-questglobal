@@ -61,7 +61,7 @@ func (c *Contact) Create(ch chan<- string) func(*gin.Context) {
 
 			fmt.Println(err)
 			ctx.JSON(http.StatusCreated, contact)
-			ctx.Abort()
+			//ctx.Abort()
 			return
 		}
 

@@ -5,9 +5,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/database"
 	"gitlab.stackroute.in/JitenP/golang-training-questglobal/handlers"
 )
@@ -38,7 +39,17 @@ func main() {
 	flag.Parse()
 
 	r := gin.Default()
-
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"PUT", "PATCH", "POST", "GET"},
+		AllowHeaders:     []string{"Origin"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		AllowOriginFunc: func(origin string) bool {
+			return origin == "*"
+		},
+		MaxAge: 12 * time.Hour,
+	}))
 	db, err := database.Connect(dsn)
 	if err != nil {
 		log.Fatalln(err) //Fatals cannot be recoverd but panics can. Fatal exit the application with os.Exit(1)
@@ -52,7 +63,6 @@ func main() {
 
 	public_v1 := r.Group("/v1/public")
 	{
-		public_v1.Use(CORSMiddleware())
 		public_v1.GET("/ping", func(c *gin.Context) {
 			m := &Message{Status: "pong"}
 			c.JSON(http.StatusOK, m)
@@ -67,13 +77,11 @@ func main() {
 	cHandler.Conns = []string{mb}
 	private_v1 := r.Group("v1/private")
 	{
-		//private_v1.Use(jwt.Auth(secretCode)) // This is middleware
-		private_v1.Use(CORSMiddleware())
-		private_v1.POST("/contact/add", CORSMiddleware(), cHandler.Create(ch))
+		private_v1.POST("/contact/add", cHandler.Create(ch))
 		private_v1.PUT("/contact/update/:id", cHandler.UpdateBy(ch))
 		private_v1.DELETE("/contact/delete/:id", cHandler.DeleteBy(ch))
 		private_v1.GET("/contact/get/:id", cHandler.GetByID(ch))
-		private_v1.GET("/contact/get/all", CORSMiddleware(), cHandler.GetAll(ch))
+		private_v1.GET("/contact/get/all", cHandler.GetAll(ch))
 		private_v1.GET("/contact/get/all/:skip/:limit", cHandler.GetAllBy(ch))
 		private_v1.GET("/greet/:name", Authenticate("123456"), func(c *gin.Context) {
 			if name, ok := c.Params.Get("name"); !ok {
@@ -102,8 +110,8 @@ func main() {
 		}
 	}()
 
-	log.Fatal(r.RunTLS(":"+port, "security/localhost.crt", "security/localhost.key"))
-
+	//log.Fatal(r.RunTLS(":"+port, "security/localhost.crt", "security/localhost.key"))
+	log.Fatal(r.Run(":" + port))
 }
 
 func Authenticate(token string) func(*gin.Context) {
@@ -135,21 +143,6 @@ func Audit(c *gin.Context) {
 	_, err = file.Write([]byte(url.String()))
 	if err != nil {
 		log.Println(err)
-	}
-}
-
-func CORSMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", "https://localhost:8000/*")
-		c.Header("Access-Control-Allow-Credentials", "true")
-		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
-
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
-			return
-		}
-		c.Next()
 	}
 }
 

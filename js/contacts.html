@@ -5,8 +5,8 @@
     <title>demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
-        const getcontactsurl = "https://localhost:58080/v1/private/contact/get/all"
-        async function getContactbyId() {
+        const getcontactsurl = "http://localhost:58082/v1/private/contact/get/all"
+        async function getContacts() {
 
             const response = await fetch(getcontactsurl);
 
@@ -50,13 +50,14 @@
             document.getElementById("contacts").innerHTML = tab;
         }
 
-        const createcontacturl = "https://localhost:58080/v1/private/contact/add"
+        const createcontacturl = "http://localhost:58082/v1/private/contact/add"
         function createContact() {
 
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
-            myHeaders.append("cors", "no-cors");
-
+            myHeaders.append( "credentials","include" )
+           // myHeaders.app"Access-Control-Allow-Origin" : "*"end("cors", "no-cors");
+           // myHeaders.append("Access-Control-Allow-Origin" , "*");
             var raw = JSON.stringify({
                 "name": document.getElementById("txtname").value,
                 "email": document.getElementById("txtemail").value,
@@ -75,12 +76,16 @@
                 .then(response => response.text())
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
+            
+                document.getElementById("contacts").innerHTML="<tr></tr>"
+
+                getContacts();
         }
 
     </script>
 </head>
 
-<body onload="getContactbyId();">
+<body onload="getContacts();">
     <div id="loading">
         <span>Loading...</span>
     </div>
@@ -106,7 +111,7 @@
             <td><input type="text" id="txtphone"></td>
         </tr>
         <tr>
-            <td><button id="btnsave" onclick="createContact()">Save</button></td>
+            <td><button id="btnsave" onclick="createContact();">Save</button></td>
         </tr>
     </table>
 
