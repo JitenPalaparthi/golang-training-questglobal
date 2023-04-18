@@ -10,10 +10,23 @@ spec:
   rules:
   - http:
       paths:
-      - path: /app1
+      - path: /account
         pathType: Prefix
         backend:
           service:
-            name: contactsappservice
+            name: accountsite
             port:
               number: 8080
+      - path: /movies
+              pathType: Prefix
+              backend:
+                service:
+                  name: moviessite
+                  port:
+                    number: 8080
+
+# myportal.com/account
+# /account  --> accounts service
+# /movies    --> videos service
+# images  --> images service
+# games --> games service

@@ -10,3 +10,14 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+
+# support.amazon.com
+# primevideo.amazon.com
+# what ever amazon website -->
+# googe.com, mail.google.com , meet.google.com
+# google.com/sheet
+
+# 100 be
+# 100 fe
+# 100 loadbalancers --> very expensive 
+# ingress
