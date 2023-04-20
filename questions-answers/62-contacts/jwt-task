@@ -1,9 +1,0 @@
-The secret code of the token , must be taken from a file.
-
-Create a file called secret
-
-store the secretcode in the file.
-
-Use that secretcode to authenticate
-
-The expiry of the token must be for an year.(365 days)
