@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contactsapp
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: contactsapp
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: contactsapp
+    spec:
+      containers:
+      - name: contactsapp
+        image: jpalaparthi/contactsapp:v0.0.2
+        envFrom:
+            - configMapRef:
+                name: contactsapp-config
+        # env:
+        #   - name: DBCONN
+        #     value: "host=postgres.dev.svc.cluster.local user=admin password=test123 dbname=contactsdb port=55432 sslmode=disable TimeZone=Asia/Shanghai"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080

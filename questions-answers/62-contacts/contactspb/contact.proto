@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package contactspb;
+import "google/protobuf/struct.proto";
+
+option go_package = "gitlab.stackroute.in/JitenP/golang-training-questglobal/contactspb";
+
+message ContactCreateMessage{
+    string Name =2;
+    string Address=3;
+    string Email=4;
+    string PhoneNumber=5;
+    string Status=6;
+    int64  LastModified=7;
+}
+
+message ContactMessage{
+    uint64  ID=1;
+    string Name =2;
+    string Address=3;
+    string Email=4;
+    string PhoneNumber=5;
+    string Status=6;
+    int64  LastModified=7;
+}
+
+message ContactMessages{
+    repeated ContactMessage Contacts=1;// repeated means array
+}
+
+message ByIDRequest{
+    int64 ID=1;
+}
+
+message UpdateRequest{
+    int64 ID=1;
+    google.protobuf.Struct Data=2; // if using map in golang code then there should be google.protobuf.struct
+}
+
+message GeneralResponse{
+    int32 Code=1;
+    string Message=2;
+}
+
+message NoIn{
+}
+
+service Contact{
+    rpc Create(ContactCreateMessage) returns (GeneralResponse);
+    rpc Delete(ByIDRequest)returns (GeneralResponse);
+    rpc Update(UpdateRequest)returns (GeneralResponse);
+    rpc GetBy(ByIDRequest)returns(ContactMessage);
+    rpc GetAll(NoIn) returns(ContactMessages);
+}
